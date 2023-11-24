@@ -9,6 +9,7 @@ import 'package:pricebutler/app/components/brandListviewBuilder.dart';
 import 'package:pricebutler/app/components/horizontalListViewBuilder.dart';
 import 'package:pricebutler/app/components/priceButlerGridViewBuilder.dart';
 import 'package:pricebutler/app/constants/image_constant.dart';
+import 'package:pricebutler/app/routes/app_pages.dart';
 import 'package:pricebutler/app/services/colors.dart';
 import 'package:pricebutler/app/services/responsive_size.dart';
 import 'package:pricebutler/app/services/text_style_util.dart';
@@ -25,9 +26,19 @@ class HomeView extends GetView<HomeController> {
           elevation: 1,
           color: Colors.white,
           actions: [
-            SvgPicture.asset(ImageConstant.svgheartline),
-            SvgPicture.asset(ImageConstant.svgnotificationline)
-                .paddingOnly(right: 24.kw, left: 16.kw),
+            GestureDetector(
+                child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.WISHLIST);
+                    },
+                    child: SvgPicture.asset(ImageConstant.svgheartline))),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.NOTIFICATION);
+              },
+              child: SvgPicture.asset(ImageConstant.svgnotificationline)
+                  .paddingOnly(right: 24.kw, left: 16.kw),
+            ),
           ],
           leading: Center(
             child: Text(
@@ -56,7 +67,7 @@ class HomeView extends GetView<HomeController> {
                       textStyle: TextStyleUtil.inter400(
                           fontSize: 14.kh, color: context.GreyNeutral),
                     ),
-                    Container(
+                    SizedBox(
                         height: 80,
                         child: Obx(
                           () => brandListviewBuilder(
@@ -64,7 +75,7 @@ class HomeView extends GetView<HomeController> {
                               brandLogos: controller.brandLogos),
                         )),
                   ],
-                ).paddingOnly(left: 24.kw, right: 24.kw, top: 15.kw),
+                ).paddingOnly(left: 24.kw, right: 24.kw, top: 15.kh),
                 Stack(
                   children: [
                     Image.asset(ImageConstant.pnghomescreencard),
@@ -113,32 +124,45 @@ class HomeView extends GetView<HomeController> {
                     )
                   ],
                 ),
-                ViewAllRow(
-                  label: 'Popular Categories',
-                  onPressed: () {},
-                ),
-                priceButlerGridViewBuilder(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 6,
-                  itemCount: controller.productsList.length,
-                  productsList: controller.productsList,
-                  productsName: controller.productsName,
-                  textStyle: TextStyleUtil.inter400(
-                      fontSize: 12.kh, color: Colors.black),
-                ),
-                ViewAllRow(
-                  label: 'Deal Of The Day',
-                  onPressed: () {},
-                ),
-                Container(
-                  height: 210.kh,
-                  child: HorizontalListViewBuilder(
-                    itemCount: 3,
-                    productImage: controller.productImage,
-                    productNameList: controller.productsNameList,
-                  ),
-                )
+                Column(
+                  children: [
+                    ViewAllRow(
+                      label: 'Popular Categories',
+                      onPressed: () {},
+                    ),
+                    priceButlerGridViewBuilder(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 6,
+                      itemCount: controller.productsList.length,
+                      productsList: controller.productsList,
+                      productsName: controller.productsName,
+                      textStyle: TextStyleUtil.inter400(
+                          fontSize: 12.kh, color: Colors.black),
+                    ),
+                    ViewAllRow(
+                      label: 'Deal Of The Day',
+                      onPressed: () {},
+                    ),
+                    SizedBox(
+                      height: 210.kh,
+                      child: HorizontalListViewBuilder(
+                        itemCount: 3,
+                        iconStar: true,
+                        cancelIcon: false,
+                        compareIcon: true,
+                        priceGraphIcon: true,
+                        productImage: controller.productImage,
+                        productNameList: controller.productsNameList,
+                        productDescription: controller.productsDescription,
+                        productCurrentPrice: controller.productsCurrentPrice,
+                        productPastPrice: controller.productsLastPrice,
+                        productTotalReview: controller.productRating,
+                        productRating: controller.productTotalReview,
+                      ),
+                    ),
+                  ],
+                ).paddingOnly(left: 24.kw, right: 24.kw, top: 36.kh),
               ],
             ),
           ),

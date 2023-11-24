@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -46,7 +47,7 @@ class CommonImageView extends StatelessWidget {
           height: height,
           width: width,
           fit: fit,
-          // color: svgColor,
+          color: svgColor,
         ),
       );
     } else if (file != null && file!.path.isNotEmpty) {

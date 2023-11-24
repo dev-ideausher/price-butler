@@ -6,7 +6,9 @@ class PriceButtlerAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String? label;
   final Widget? leading;
+  final Widget? title;
   final List<Widget>? actions;
+  final bool? centerTile;
   final Color? color;
   final double? elevation;
   const PriceButtlerAppBar(
@@ -15,7 +17,9 @@ class PriceButtlerAppBar extends StatelessWidget
       this.elevation,
       this.color,
       this.leading,
-      this.actions})
+      this.actions,
+      this.title,
+      this.centerTile})
       : super(key: key);
 
   @override
@@ -26,6 +30,8 @@ class PriceButtlerAppBar extends StatelessWidget
     return AppBar(
       elevation: elevation,
       backgroundColor: color ?? Colors.transparent,
+      title: title,
+      centerTitle: centerTile,
       leading: leading ??
           IconButton(
             iconSize: 30.kw,

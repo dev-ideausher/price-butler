@@ -12,10 +12,14 @@ import '../modules/catogries/bindings/catogries_binding.dart';
 import '../modules/catogries/views/catogries_view.dart';
 import '../modules/compare/bindings/compare_binding.dart';
 import '../modules/compare/views/compare_view.dart';
+import '../modules/notification/bindings/notification_binding.dart';
+import '../modules/notification/views/notification_view.dart';
 import '../modules/onBoardingA/bindings/on_boarding_a_binding.dart';
 import '../modules/onBoardingA/views/on_boarding_a_view.dart';
 import '../modules/pricebuttlerbottombar/bindings/pricebuttlerbottombar_binding.dart';
 import '../modules/pricebuttlerbottombar/views/pricebuttlerbottombar_view.dart';
+import '../modules/producDetails/bindings/produc_details_binding.dart';
+import '../modules/producDetails/views/produc_details_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/signUp/bindings/sign_up_binding.dart';
@@ -26,6 +30,8 @@ import '../modules/signUpSuccessFul/bindings/sign_up_success_ful_binding.dart';
 import '../modules/signUpSuccessFul/views/sign_up_success_ful_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/wishlist/bindings/wishlist_binding.dart';
+import '../modules/wishlist/views/wishlist_view.dart';
 
 part 'app_routes.dart';
 
@@ -99,6 +105,21 @@ class AppPages {
       name: _Paths.CATOGRIES,
       page: () => const CatogriesView(),
       binding: CatogriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUC_DETAILS,
+      page: () => const ProducDetailsView(),
+      binding: ProducDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.WISHLIST,
+      page: () => const WishlistView(),
+      binding: WishlistBinding(),
     ),
   ];
 }

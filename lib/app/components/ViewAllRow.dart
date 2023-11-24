@@ -6,7 +6,8 @@ import 'package:pricebutler/app/services/text_style_util.dart';
 class ViewAllRow extends StatelessWidget {
   final String? label;
   final Function()? onPressed;
-  const ViewAllRow({super.key, this.label, this.onPressed});
+  final double? fontsize;
+  const ViewAllRow({super.key, this.label, this.onPressed, this.fontsize});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,8 @@ class ViewAllRow extends StatelessWidget {
       children: [
         Text(
           label!,
-          style: TextStyleUtil.inter500(fontSize: 18.kh, color: Colors.black),
+          style: TextStyleUtil.inter500(
+              fontSize: fontsize ?? 18.kh, color: Colors.black),
         ),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,

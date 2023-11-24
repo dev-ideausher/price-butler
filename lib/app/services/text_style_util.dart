@@ -25,24 +25,52 @@ class TextStyleUtil {
     );
   }
 
-  static TextStyle inter700({
-    Color color = Colors.white,
-    required double fontSize,
-  }) {
+  static TextStyle inter700(
+      {Color color = Colors.white,
+      required double fontSize,
+      TextDecoration? decoration}) {
     return TextStyle(
       fontFamily: 'Inter',
       color: color,
       fontSize: fontSize,
+      decoration: decoration,
       fontWeight: FontWeight.w700,
     );
   }
 
-  static TextStyle inter400({
+  static TextStyle inter600(
+      {Color color = Colors.white,
+      required double fontSize,
+      TextDecoration? decoration}) {
+    return TextStyle(
+      fontFamily: 'Inter',
+      color: color,
+      fontSize: fontSize,
+      decoration: decoration,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle inter400(
+      {Color color = Colors.white,
+      required double fontSize,
+      TextDecoration? decoration}) {
+    return TextStyle(
+      fontFamily: 'Inter',
+      color: color,
+      decoration: decoration,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  static TextStyle interStrike400({
     Color color = Colors.white,
     required double fontSize,
   }) {
     return TextStyle(
       fontFamily: 'Inter',
+      decoration: TextDecoration.lineThrough,
       color: color,
       fontSize: fontSize,
       fontWeight: FontWeight.w400,

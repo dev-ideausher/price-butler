@@ -18,7 +18,7 @@ class priceButtlerLogo extends StatelessWidget {
         'PriceButlers',
         style: TextStyleUtil.robotoCondensed700(
             fontSize: 24.kh, color: Color(0xFF1C926D)),
-      ).paddingSymmetric(horizontal: 12.kw, vertical: 24.kh),
+      ).paddingSymmetric(horizontal: 26.kw, vertical: 12.kh),
     );
   }
 }

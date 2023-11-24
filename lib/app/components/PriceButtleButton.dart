@@ -11,6 +11,8 @@ class PriceButtlerButton extends StatelessWidget {
   final String? svgPath;
   final String? imagePath;
   final TextStyle labelStyle;
+  final EdgeInsets? edgeInsets;
+  final OutlinedBorder? shape;
   const PriceButtlerButton(
       {super.key,
       required this.onpressed,
@@ -18,15 +20,19 @@ class PriceButtlerButton extends StatelessWidget {
       required this.labelStyle,
       this.svgPath,
       this.imagePath,
-      required this.color});
+      required this.color,
+      this.edgeInsets,
+      this.shape});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             elevation: 0,
+            shape: shape,
             backgroundColor: color,
-            padding: EdgeInsets.symmetric(horizontal: 12.kw, vertical: 16.kh)),
+            padding: edgeInsets ??
+                EdgeInsets.symmetric(horizontal: 12.kw, vertical: 16.kh)),
         onPressed: onpressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

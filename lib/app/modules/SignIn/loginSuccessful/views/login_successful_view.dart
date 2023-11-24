@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pricebutler/app/components/PriceButtleButton.dart';
 import 'package:pricebutler/app/components/common_image_view.dart';
 import 'package:pricebutler/app/constants/image_constant.dart';
+import 'package:pricebutler/app/routes/app_pages.dart';
 import 'package:pricebutler/app/services/colors.dart';
 import 'package:pricebutler/app/services/responsive_size.dart';
 import 'package:pricebutler/app/services/text_style_util.dart';
@@ -33,7 +34,9 @@ class LoginSuccessfulView extends GetView<LoginSuccessfulController> {
                   TextStyleUtil.inter400(fontSize: 16.kh, color: Colors.black),
             ).paddingOnly(bottom: 20.kh),
             PriceButtlerButton(
-                onpressed: () {},
+                onpressed: () {
+                  Get.toNamed(Routes.PRICEBUTTLERBOTTOMBAR);
+                },
                 label: 'Go To Home',
                 labelStyle: TextStyleUtil.dmSans500(fontSize: 18.kh),
                 color: context.Green)

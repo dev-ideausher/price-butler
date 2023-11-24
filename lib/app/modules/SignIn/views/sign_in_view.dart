@@ -21,118 +21,121 @@ class SignInView extends GetView<SignInController> {
 
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Card(
-                elevation: 10,
-                color: Color(0xFFEEFFFA),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.kw),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Card(
+                  elevation: 10,
+                  color: Color(0xFFEEFFFA),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.kw),
+                  ),
+                  child: Text(
+                    'PriceButlers',
+                    style: TextStyleUtil.robotoCondensed700(
+                      fontSize: 24.kh,
+                      color: context.Green,
+                    ),
+                  ).paddingSymmetric(horizontal: 26.kw, vertical: 12.kh),
                 ),
-                child: Text(
-                  'PriceButlers',
-                  style: TextStyleUtil.robotoCondensed700(
+                Text(
+                  'Welcome Back!',
+                  style: TextStyleUtil.inter700(
                     fontSize: 24.kh,
-                    color: context.Green,
-                  ),
-                ).paddingSymmetric(horizontal: 12.kw, vertical: 24.kh),
-              ),
-              Text(
-                'Welcome Back!',
-                style: TextStyleUtil.inter700(
-                  fontSize: 24.kh,
-                  color: Colors.black,
-                ),
-              ).paddingOnly(top: 34.kh, bottom: 34.kh),
-              PriceButlerTextField(
-                prefixIcon: Icon(
-                  CupertinoIcons.phone,
-                  color: context.GreyNeutral,
-                ),
-                focusColor: context.GreyNeutral,
-                textInputType: TextInputType.numberWithOptions(),
-                hintText: 'Phone',
-                onChanged: (value) => controller.phoneNumber.value = value,
-                textStyle: TextStyleUtil.inter400(
-                  fontSize: 16.kh,
-                  color: context.GreyNeutral,
-                ),
-              ).paddingOnly(bottom: 24.kh),
-              Obx(
-                () => PriceButtlerButton(
-                  onpressed: () {
-                    controller.phoneNumber.isNotEmpty
-                        ? controller.handleButtonPress()
-                        : null;
-                  },
-                  color: controller.phoneNumber.isNotEmpty
-                      ? context.Green
-                      : context.buttonUnfilledColor,
-                  label: 'Continue',
-                  labelStyle: TextStyleUtil.inter400(
-                    fontSize: 18.kh,
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    color: Colors.black,
-                    height: 1.kh,
-                    width: 34.kw,
-                  ).paddingOnly(left: 50.kw),
-                  Text(
-                    'OR Continue With',
-                    style: TextStyleUtil.inter400(
-                      fontSize: 14.kh,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Container(
-                    color: Colors.black,
-                    height: 1.kh,
-                    width: 34.kw,
-                  ).paddingOnly(right: 50.kw),
-                ],
-              ).paddingOnly(top: 24.kh, bottom: 24.kh),
-              SocialMedialLoginRow(),
-              RichText(
-                text: TextSpan(
-                  text: "Don't have an account? ",
-                  style: TextStyleUtil.inter400(
-                    fontSize: 16.kh,
                     color: Colors.black,
                   ),
-                  children: [
-                    TextSpan(
-                      text: 'Create Account',
-                      style: TextStyleUtil.inter700(
-                        fontSize: 16.kh,
-                        color: context.brandColor1,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Get.toNamed(Routes.SIGN_UP);
-                        },
-                    ),
-                  ],
-                ),
-              ).paddingOnly(top: 10.kh, bottom: 31.kh),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Skip for now',
-                  style: TextStyleUtil.inter400(
+                ).paddingOnly(top: 34.kh, bottom: 34.kh),
+                PriceButlerTextField(
+                  prefixIcon: Icon(
+                    CupertinoIcons.phone,
+                    color: context.GreyNeutral,
+                  ),
+                  focusColor: context.GreyNeutral,
+                  textInputType: TextInputType.numberWithOptions(),
+                  hintText: 'Phone',
+                  onChanged: (value) => controller.phoneNumber.value = value,
+                  textStyle: TextStyleUtil.inter400(
                     fontSize: 16.kh,
                     color: context.GreyNeutral,
                   ),
+                ).paddingOnly(bottom: 24.kh),
+                Obx(
+                  () => PriceButtlerButton(
+                    onpressed: () {
+                      controller.phoneNumber.isNotEmpty
+                          ? controller.handleButtonPress()
+                          : null;
+                    },
+                    color: controller.phoneNumber.isNotEmpty
+                        ? context.Green
+                        : context.buttonUnfilledColor,
+                    label: 'Continue',
+                    labelStyle: TextStyleUtil.inter400(
+                      fontSize: 18.kh,
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ).paddingOnly(left: 16.kw, right: 16.kw),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      color: Colors.black,
+                      height: 1.kh,
+                      width: 34.kw,
+                    ).paddingOnly(left: 50.kw),
+                    Text(
+                      'OR Continue With',
+                      style: TextStyleUtil.inter400(
+                        fontSize: 14.kh,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black,
+                      height: 1.kh,
+                      width: 34.kw,
+                    ).paddingOnly(right: 50.kw),
+                  ],
+                ).paddingOnly(top: 24.kh, bottom: 24.kh),
+                SocialMedialLoginRow(),
+                RichText(
+                  text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: TextStyleUtil.inter400(
+                      fontSize: 16.kh,
+                      color: Colors.black,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Create Account',
+                        style: TextStyleUtil.inter700(
+                          fontSize: 16.kh,
+                          color: context.brandColor1,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Get.toNamed(Routes.SIGN_UP);
+                          },
+                      ),
+                    ],
+                  ),
+                ).paddingOnly(top: 10.kh, bottom: 31.kh),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Skip for now',
+                    style: TextStyleUtil.inter400(
+                      fontSize: 16.kh,
+                      color: context.GreyNeutral,
+                    ),
+                  ),
+                ),
+              ],
+            ).paddingOnly(left: 16.kw, right: 16.kw),
+          ),
         ),
       ),
     );
