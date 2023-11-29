@@ -29,7 +29,9 @@ class HomeView extends GetView<HomeController> {
             GestureDetector(
                 child: GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.WISHLIST);
+                      Get.toNamed(
+                        Routes.WISHLIST,
+                      );
                     },
                     child: SvgPicture.asset(ImageConstant.svgheartline))),
             GestureDetector(
@@ -136,7 +138,7 @@ class HomeView extends GetView<HomeController> {
                       mainAxisSpacing: 6,
                       itemCount: controller.productsList.length,
                       productsList: controller.productsList,
-                      productsName: controller.productsName,
+                      productsName: controller.productType,
                       textStyle: TextStyleUtil.inter400(
                           fontSize: 12.kh, color: Colors.black),
                     ),

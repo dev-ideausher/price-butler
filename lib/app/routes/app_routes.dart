@@ -19,6 +19,10 @@ abstract class Routes {
   static const PRODUC_DETAILS = _Paths.PRODUC_DETAILS;
   static const NOTIFICATION = _Paths.NOTIFICATION;
   static const WISHLIST = _Paths.WISHLIST;
+  static const PRICE_ALERT = _Paths.PRICE_ALERT;
+  static const REFERANDEARN = _Paths.REFERANDEARN;
+  static const FAQ = _Paths.FAQ;
+  static const SETTINGS = _Paths.SETTINGS;
 }
 
 abstract class _Paths {
@@ -39,4 +43,8 @@ abstract class _Paths {
   static const PRODUC_DETAILS = '/produc-details';
   static const NOTIFICATION = '/notification';
   static const WISHLIST = '/wishlist';
+  static const PRICE_ALERT = '/price-alert';
+  static const REFERANDEARN = '/referandearn';
+  static const FAQ = '/faq';
+  static const SETTINGS = '/settings';
 }

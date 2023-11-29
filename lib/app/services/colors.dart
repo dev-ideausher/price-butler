@@ -50,4 +50,6 @@ extension ColorUtil on BuildContext {
       dynamicColour(light: HexColor("#1FBDA1"), dark: HexColor("#000000"));
   Color get oneStarColor =>
       dynamicColour(light: HexColor("#FB9232"), dark: HexColor("#000000"));
+  Color get cyanLight =>
+      dynamicColour(light: HexColor("#FFF4EA"), dark: HexColor("#000000"));
 }

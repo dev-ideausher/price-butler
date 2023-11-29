@@ -25,8 +25,10 @@ class PricebuttlerbottombarView
         () => BottomNavigationBar(
           currentIndex: controller.selectedPageIndex.value,
           onTap: (index) => controller.changePage(index),
-          selectedItemColor: context.Green,
+          showUnselectedLabels: true,
+          showSelectedLabels: true,
           unselectedItemColor: context.GreyNeutral,
+          selectedItemColor: context.Green,
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(ImageConstant.svghome),
@@ -34,15 +36,27 @@ class PricebuttlerbottombarView
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(ImageConstant.svgcategories),
-              label: 'Profile',
+              label: 'Categories',
+              activeIcon: SvgPicture.asset(
+                ImageConstant.svgcategories,
+                color: context.Green,
+              ),
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(ImageConstant.svgcompare),
-              label: 'Settings',
+              label: 'Compare',
+              activeIcon: SvgPicture.asset(
+                ImageConstant.svgcompare,
+                color: context.Green,
+              ),
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(ImageConstant.svgprofile),
-              label: 'Settings',
+              label: 'Profile',
+              activeIcon: SvgPicture.asset(
+                ImageConstant.svgprofile,
+                color: context.Green,
+              ),
             ),
           ],
         ),

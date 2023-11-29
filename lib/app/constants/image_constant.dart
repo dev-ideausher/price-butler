@@ -9,6 +9,8 @@ class ImageConstant {
   static String svgprofile = "assets/Images/profile.svg";
   static String svgtwitter = "assets/Images/twitter.svg";
   static String svgheartline = "assets/Images/heart-line.svg";
+  static String svgfliter = "assets/Images/filter-line.svg";
+  static String svgsort = "assets/Images/arrow-up-down-fill.svg";
   static String svgnotificationline = "assets/Images/notification-line.svg";
 
   static String svghome = "assets/Images/home.svg";
@@ -18,8 +20,21 @@ class ImageConstant {
 
   static String svgshare = "assets/Images/shareline.svg";
   static String svgstar = "assets/Images/starfill.svg";
+  static String svgcoupon = "assets/Images/coupon.svg";
+  static String svghistory = "assets/Images/history.svg";
+  static String svgsettings = "assets/Images/settings.svg";
+  static String svgfaq = "assets/Images/faq.svg";
+  static String svgwallet = "assets/Images/wallet.svg";
+
 //PNGs
   static String pngamazon = 'assets/Images/amazon.png';
+  static String pngrefer = 'assets/Images/refer.png';
+  static String pngprofilebg = 'assets/Images/profilebg.png';
+
+  static String pngbook = 'assets/Images/book.png';
+  static String pngelectronics = 'assets/Images/electroncis.png';
+  static String pnghomeAppliance = 'assets/Images/homeAppliance.png';
+  static String pngfashion = 'assets/Images/fashion.png';
   static String pngInstagram = 'assets/Images/Instagram.png';
   static String pngLinkedin = 'assets/Images/Linkedin.png';
   static String pngWhatsapp = 'assets/Images/Whatsapp.png';

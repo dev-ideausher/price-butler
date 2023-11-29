@@ -27,7 +27,7 @@ class HomeController extends GetxController {
     ImageConstant.pngperfumes,
     ImageConstant.pngmakeup,
   ].obs;
-  RxList<String> productsName = [
+  RxList<String> productType = [
     'Mobiles & Tablets',
     'Appliance',
     'Watches',

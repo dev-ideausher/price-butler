@@ -12,16 +12,24 @@ import '../modules/catogries/bindings/catogries_binding.dart';
 import '../modules/catogries/views/catogries_view.dart';
 import '../modules/compare/bindings/compare_binding.dart';
 import '../modules/compare/views/compare_view.dart';
+import '../modules/faq/bindings/faq_binding.dart';
+import '../modules/faq/views/faq_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/onBoardingA/bindings/on_boarding_a_binding.dart';
 import '../modules/onBoardingA/views/on_boarding_a_view.dart';
+import '../modules/priceAlert/bindings/price_alert_binding.dart';
+import '../modules/priceAlert/views/price_alert_view.dart';
 import '../modules/pricebuttlerbottombar/bindings/pricebuttlerbottombar_binding.dart';
 import '../modules/pricebuttlerbottombar/views/pricebuttlerbottombar_view.dart';
 import '../modules/producDetails/bindings/produc_details_binding.dart';
 import '../modules/producDetails/views/produc_details_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/referandearn/bindings/referandearn_binding.dart';
+import '../modules/referandearn/views/referandearn_view.dart';
+import '../modules/settings/bindings/settings_binding.dart';
+import '../modules/settings/views/settings_view.dart';
 import '../modules/signUp/bindings/sign_up_binding.dart';
 import '../modules/signUp/views/sign_up_view.dart';
 import '../modules/signUpOtpAuthentication/bindings/sign_up_otp_authentication_binding.dart';
@@ -118,8 +126,28 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.WISHLIST,
-      page: () => const WishlistView(),
+      page: () => WishlistView(),
       binding: WishlistBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRICE_ALERT,
+      page: () => const PriceAlertView(),
+      binding: PriceAlertBinding(),
+    ),
+    GetPage(
+      name: _Paths.REFERANDEARN,
+      page: () => const ReferandearnView(),
+      binding: ReferandearnBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAQ,
+      page: () => const FaqView(),
+      binding: FaqBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTINGS,
+      page: () => const SettingsView(),
+      binding: SettingsBinding(),
     ),
   ];
 }

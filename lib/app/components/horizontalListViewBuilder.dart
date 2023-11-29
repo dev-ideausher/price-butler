@@ -10,6 +10,7 @@ import 'package:pricebutler/app/services/text_style_util.dart';
 
 class HorizontalListViewBuilder extends StatelessWidget {
   final int itemCount;
+  final double? width;
   final List productImage;
   final List productNameList;
   final bool iconStar;
@@ -34,7 +35,8 @@ class HorizontalListViewBuilder extends StatelessWidget {
       required this.iconStar,
       required this.cancelIcon,
       required this.compareIcon,
-      required this.priceGraphIcon});
+      required this.priceGraphIcon,
+      this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +63,7 @@ class HorizontalListViewBuilder extends StatelessWidget {
                   );
                 },
                 child: SizedBox(
-                  width: 140.kw,
-                  height: 208.kh,
+                  width: width != null ? width : 140.kw,
                   child: Card(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -72,12 +73,13 @@ class HorizontalListViewBuilder extends StatelessWidget {
                         children: [
                           priceGraphIcon ? priceGraph() : SizedBox(),
                           cancelIcon
-                              ? IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
+                              ? GestureDetector(
+                                  onTap: () {},
+                                  child: Icon(
                                     CupertinoIcons.xmark,
                                     size: 18.kh,
-                                  ))
+                                  ),
+                                )
                               : CommonImageView(
                                   svgPath: ImageConstant.svgheartline,
                                 )
@@ -152,7 +154,8 @@ class HorizontalListViewBuilder extends StatelessWidget {
                         ],
                       ).paddingOnly(top: 2.kh)
                     ],
-                  ).paddingOnly(top: 8.kh, right: 8.kw, left: 8.kw)),
+                  ).paddingOnly(
+                          top: 8.kh, right: 8.kw, left: 8.kw, bottom: 8.kh)),
                 ),
               ),
             ],
@@ -162,19 +165,30 @@ class HorizontalListViewBuilder extends StatelessWidget {
 }
 
 class priceGraph extends StatelessWidget {
+  final double? height;
+  final double? width;
+  final TextStyle? textStyle;
   const priceGraph({
     super.key,
+    this.height,
+    this.width,
+    this.textStyle,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: height,
+        width: width,
         decoration: BoxDecoration(
             color: context.primaryLightGreen05,
             borderRadius: BorderRadius.circular(18)),
         child: Row(
           children: [
-            Text('30%').paddingOnly(right: 5.kw),
+            Text(
+              '30%',
+              style: textStyle,
+            ).paddingOnly(right: 5.kw),
             CommonImageView(
               svgPath: ImageConstant.svgtrendingdown,
             )
