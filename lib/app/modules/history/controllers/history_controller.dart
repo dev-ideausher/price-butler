@@ -1,14 +1,9 @@
-import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/image_constant.dart';
 
-class WishlistController extends GetxController {
-  PageController pageController = PageController();
-  SideMenuController sideMenu = SideMenuController();
-  final RxInt currentIndex = 0.obs;
-  //TODO: Implement WishlistController
+class HistoryController extends GetxController {
+  //TODO: Implement HistoryController
   RxList<String> productsList = [
     ImageConstant.pngmobilesandtablets,
     ImageConstant.pngappliances,
@@ -64,6 +59,7 @@ class WishlistController extends GetxController {
   RxList<String> productTotalReview =
       ['(123)', '(123)', '(123)', '(123)', '(123)', '(123)'].obs;
 
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -71,19 +67,13 @@ class WishlistController extends GetxController {
 
   @override
   void onReady() {
-    sideMenu.addListener((index) {
-      pageController.jumpToPage(index);
-    });
     super.onReady();
   }
 
   @override
   void onClose() {
     super.onClose();
-    sideMenu.dispose();
   }
 
-  changePage(int index) {
-    pageController.jumpToPage(index);
-  }
+  void increment() => count.value++;
 }

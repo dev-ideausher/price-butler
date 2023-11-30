@@ -33,6 +33,7 @@ class priceButlerGridViewBuilder extends StatelessWidget {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: childAspectRatio!.toDouble(),
           crossAxisCount: crossAxisCount,
           crossAxisSpacing: crossAxisSpacing,
           mainAxisSpacing: mainAxisSpacing),

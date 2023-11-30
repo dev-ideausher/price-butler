@@ -29,6 +29,7 @@ class CatogriesView extends GetView<CatogriesController> {
             NavigationRail(
               selectedIndex: controller.currentIndex.value,
               indicatorColor: Colors.red,
+              groupAlignment: 1,
               unselectedLabelTextStyle:
                   TextStyleUtil.inter400(fontSize: 10, color: Colors.black),
               selectedLabelTextStyle:

@@ -25,9 +25,14 @@ class ImageConstant {
   static String svgsettings = "assets/Images/settings.svg";
   static String svgfaq = "assets/Images/faq.svg";
   static String svgwallet = "assets/Images/wallet.svg";
+  static String svgcouponicon = "assets/Images/couponicon.svg";
+  static String svgcoupon1 = "assets/Images/coupon1.svg";
+  static String svgcoupon2 = "assets/Images/coupon2.svg";
+  static String svgavailablecoupons = "assets/Images/availablecoupons.svg";
 
 //PNGs
   static String pngamazon = 'assets/Images/amazon.png';
+  static String pngdottedCoupon = 'assets/Images/dottedCoupon.png';
   static String pngrefer = 'assets/Images/refer.png';
   static String pngprofilebg = 'assets/Images/profilebg.png';
 

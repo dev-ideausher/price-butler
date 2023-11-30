@@ -10,7 +10,7 @@ class ProfileController extends GetxController {
     Routes.PRICE_ALERT,
     Routes.REFERANDEARN,
     Routes.FAQ,
-    Routes.SETTINGS
+    Routes.SETTINGS,
   ].obs;
   RxList<String> profileMenuIcon = [
     ImageConstant.svgnotificationline,

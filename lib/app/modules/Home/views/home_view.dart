@@ -136,6 +136,7 @@ class HomeView extends GetView<HomeController> {
                       crossAxisCount: 3,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 6,
+                      childAspectRatio: 3 / 3,
                       itemCount: controller.productsList.length,
                       productsList: controller.productsList,
                       productsName: controller.productType,

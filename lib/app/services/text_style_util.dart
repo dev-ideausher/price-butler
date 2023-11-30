@@ -112,6 +112,30 @@ class TextStyleUtil {
       fontWeight: FontWeight.w500,
     );
   }
+
+  static TextStyle nunito500({
+    Color color = Colors.black,
+    required double fontSize,
+  }) {
+    return TextStyle(
+      fontFamily: 'Nunito',
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  static TextStyle nunito800({
+    Color color = Colors.black,
+    required double fontSize,
+  }) {
+    return TextStyle(
+      fontFamily: 'Nunito Bold',
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w800,
+    );
+  }
 }
 
 extension AppText on String {

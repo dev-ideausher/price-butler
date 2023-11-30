@@ -59,6 +59,10 @@ dependencies:
   dotted_border: ^2.1.0
   flutter_dotted: ^0.0.4
   bulleted_list: ^0.0.1+0.1a
+  ticket_widget: ^1.0.2
+  sks_ticket_view: ^1.0.0
+  flutter_ticket: ^1.0.1
+  flutter_custom_clippers: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -124,6 +128,15 @@ flutter:
       fonts:
         - asset: assets/Fonts/DM_Sans/static/DMSans-Regular.ttf
           weight: 400
+
+    - family: Nunito
+      fonts:
+        - asset: assets/Fonts/Nunito/Nunito-VariableFont_wght.ttf
+          weight: 500
+    - family: Nunito Bold
+      fonts:
+        - asset: assets/Fonts/Nunito/static/Nunito-Bold.ttf
+          weight: 800
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

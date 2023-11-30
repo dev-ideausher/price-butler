@@ -23,6 +23,11 @@ abstract class Routes {
   static const REFERANDEARN = _Paths.REFERANDEARN;
   static const FAQ = _Paths.FAQ;
   static const SETTINGS = _Paths.SETTINGS;
+  static const ABOUTUS = _Paths.ABOUTUS;
+  static const TERMSOFUSE = _Paths.TERMSOFUSE;
+  static const PRIVACYPOLICY = _Paths.PRIVACYPOLICY;
+  static const HISTORY = _Paths.HISTORY;
+  static const COUPONS = _Paths.COUPONS;
 }
 
 abstract class _Paths {
@@ -47,4 +52,9 @@ abstract class _Paths {
   static const REFERANDEARN = '/referandearn';
   static const FAQ = '/faq';
   static const SETTINGS = '/settings';
+  static const ABOUTUS = '/aboutus';
+  static const TERMSOFUSE = '/termsofuse';
+  static const PRIVACYPOLICY = '/privacypolicy';
+  static const HISTORY = '/history';
+  static const COUPONS = '/coupons';
 }

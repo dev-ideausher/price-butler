@@ -6,6 +6,7 @@ import 'package:pricebutler/app/constants/image_constant.dart';
 import 'package:pricebutler/app/services/colors.dart';
 import 'package:pricebutler/app/services/responsive_size.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../services/text_style_util.dart';
 import '../controllers/profile_controller.dart';
 
@@ -110,7 +111,9 @@ class ProfileView extends GetView<ProfileController> {
                               alignment: MainAxisAlignment.center,
                               children: [
                                 PriceButtlerButton(
-                                  onpressed: () {},
+                                  onpressed: () {
+                                    Get.toNamed(Routes.HISTORY);
+                                  },
                                   label: 'History',
                                   svgPath: ImageConstant.svghistory,
                                   edgeInsets: EdgeInsets.symmetric(
@@ -125,7 +128,9 @@ class ProfileView extends GetView<ProfileController> {
                                   color: Colors.white,
                                 ).paddingOnly(right: 24.kw),
                                 PriceButtlerButton(
-                                  onpressed: () {},
+                                  onpressed: () {
+                                    Get.toNamed(Routes.COUPONS);
+                                  },
                                   label: 'Coupons',
                                   svgPath: ImageConstant.svgcoupon,
                                   edgeInsets: EdgeInsets.symmetric(
@@ -168,7 +173,7 @@ class ProfileView extends GetView<ProfileController> {
                                 Text('Logout',
                                     style: TextStyleUtil.inter400(
                                         fontSize: 16.kh,
-                                        color: Color(0xFF424244)))
+                                        color: const Color(0xFF424244)))
                               ],
                             ).paddingSymmetric(
                                 horizontal: 30.kw, vertical: 20.kh)
@@ -208,7 +213,7 @@ class profileMenu extends StatelessWidget {
         ListView.builder(
             itemCount: itemCount,
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               return Column(
                 children: [
@@ -247,28 +252,33 @@ class profileMenu extends StatelessWidget {
               );
             }),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.ABOUTUS);
+            },
             child: Text(
               'About US',
               style: TextStyleUtil.inter400(
-                  fontSize: 16.kh, color: Color(0xFF424244)),
+                  fontSize: 16.kh, color: const Color(0xFF424244)),
             )),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.TERMSOFUSE);
+            },
             child: Text(
               'Terms Of Use',
               style: TextStyleUtil.inter400(
-                  fontSize: 16.kh, color: Color(0xFF424244)),
+                  fontSize: 16.kh, color: const Color(0xFF424244)),
             )),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.PRIVACYPOLICY);
+            },
             child: Text(
               'Privacy Policy',
               style: TextStyleUtil.inter400(
-                  fontSize: 16.kh, color: Color(0xFF424244)),
+                  fontSize: 16.kh, color: const Color(0xFF424244)),
             )),
       ],
     ).paddingSymmetric(horizontal: 24.kw);
-    ;
   }
 }

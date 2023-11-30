@@ -36,6 +36,10 @@ extension ColorUtil on BuildContext {
       dynamicColour(light: HexColor("#1C926D"), dark: HexColor("#000000"));
   Color get GreyNeutral =>
       dynamicColour(light: HexColor("#787878"), dark: HexColor("#000000"));
+  Color get lightGrey =>
+      dynamicColour(light: HexColor("#C2C2C3"), dark: HexColor("#000000"));
+  Color get couponsText =>
+      dynamicColour(light: HexColor("#6E6E6E"), dark: HexColor("#000000"));
   Color get BlackNeutral =>
       dynamicColour(light: HexColor("#1F1F21"), dark: HexColor("#000000"));
   Color get TeritaryGreen =>
