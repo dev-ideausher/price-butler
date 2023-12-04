@@ -5,7 +5,7 @@ class PricebuttlerbottombarController extends GetxController
   //TODO: Implement PricebuttlerbottombarController
   var selectedPageIndex = 0.obs;
 
-  void changePage(int index) {
+  changePage(int index) {
     selectedPageIndex.value = index;
   }
 

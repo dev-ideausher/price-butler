@@ -1,3 +1,8 @@
+import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/tooltip/tooltip.dart';
+import 'package:another_xlider/models/tooltip/tooltip_box.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +14,13 @@ import 'package:pricebutler/app/constants/image_constant.dart';
 import 'package:pricebutler/app/services/colors.dart';
 import 'package:pricebutler/app/services/responsive_size.dart';
 import 'package:pricebutler/app/services/text_style_util.dart';
+import 'package:textfield_search/textfield_search.dart';
 
 import '../controllers/wishlist_controller.dart';
 
 class WishlistView extends GetView<WishlistController> {
-  const WishlistView({Key? key}) : super(key: key);
-
+  WishlistView({Key? key}) : super(key: key);
+  //TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +61,10 @@ class WishlistView extends GetView<WishlistController> {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showFilterBottomSheet(
+                        context, controller.searchController);
+                  },
                   icon: CommonImageView(
                     svgPath: ImageConstant.svgfliter,
                     svgColor: Colors.white,
@@ -79,7 +88,7 @@ class WishlistView extends GetView<WishlistController> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               CupertinoIcons.search,
               color: Colors.black,
             ),
@@ -124,104 +133,360 @@ class WishlistView extends GetView<WishlistController> {
     );
   }
 
-  void _showSortBottomSheet(BuildContext context) {
+  void _showFilterBottomSheet(
+      BuildContext context, TextEditingController searchController) {
     final SideMenuController sideMenuController = SideMenuController();
+
     Get.bottomSheet(
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24.kh))),
-          child: Obx(
-            () => Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 150.kw,
-                  child: NavigationRail(
-                    selectedIndex: controller.currentIndex.value,
-                    indicatorColor: Colors.red,
-                    groupAlignment: 1,
-                    unselectedLabelTextStyle: TextStyleUtil.inter400(
-                        fontSize: 10, color: Colors.black),
-                    selectedLabelTextStyle: TextStyleUtil.inter400(
-                        fontSize: 10, color: context.Green),
-                    backgroundColor: const Color(0xFFEFF1F4),
-                    onDestinationSelected: (int index) {
-                      controller.currentIndex.value = index;
-                      controller.changePage(index);
-                    },
-                    destinations: <NavigationRailDestination>[
-                      NavigationRailDestination(
-                          icon: Text(
-                            'Brand',
-                            style: TextStyleUtil.inter500(
-                                fontSize: 14.kh, color: Colors.black),
+        DraggableScrollableSheet(
+            initialChildSize: 0.9,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return ClipRRect(
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(24.kh)),
+                child: Scaffold(
+                  appBar: PriceButtlerAppBar(
+                    elevation: 0,
+                    color: Colors.white,
+                    title: Text(
+                      'Filter',
+                      style: TextStyleUtil.inter500(
+                          fontSize: 18.kh, color: Colors.black),
+                    ),
+                  ),
+                  body: Obx(
+                    () => Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        NavigationRail(
+                          selectedIndex: controller.currentIndex.value,
+                          indicatorColor: Colors.red,
+                          groupAlignment: -1,
+                          unselectedLabelTextStyle: TextStyleUtil.inter400(
+                              fontSize: 10, color: Colors.black),
+                          selectedLabelTextStyle: TextStyleUtil.inter400(
+                              fontSize: 10, color: context.Green),
+                          backgroundColor: const Color(0xFFEFF1F4),
+                          onDestinationSelected: (int index) {
+                            controller.currentIndex.value = index;
+                            controller.changePage(index);
+                          },
+                          destinations: <NavigationRailDestination>[
+                            NavigationRailDestination(
+                                icon: Text(
+                                  'Brand',
+                                  style: TextStyleUtil.inter500(
+                                      fontSize: 14.kh, color: Colors.black),
+                                ),
+                                selectedIcon: Text(
+                                  'Brand',
+                                  style: TextStyleUtil.inter500(
+                                      fontSize: 14.kh, color: Colors.black),
+                                ).paddingOnly(
+                                    left: 24.kw,
+                                    right: 24.kw,
+                                    top: 12.kw,
+                                    bottom: 12.kw),
+                                label: const SizedBox()),
+                            NavigationRailDestination(
+                              icon: Text(
+                                'Stores',
+                                style: TextStyleUtil.inter500(
+                                    fontSize: 14.kh, color: Colors.black),
+                              ),
+                              selectedIcon: Text(
+                                'Stores',
+                                style: TextStyleUtil.inter500(
+                                    fontSize: 14.kh, color: Colors.black),
+                              ),
+                              label: const SizedBox(),
+                            ),
+                            NavigationRailDestination(
+                              icon: Text(
+                                'Categories',
+                                style: TextStyleUtil.inter500(
+                                    fontSize: 14.kh, color: Colors.black),
+                              ),
+                              selectedIcon: Text(
+                                'Categories',
+                                style: TextStyleUtil.inter500(
+                                    fontSize: 14.kh, color: Colors.black),
+                              ),
+                              label: const SizedBox(),
+                            ),
+                            NavigationRailDestination(
+                              icon: Text(
+                                'Price Range',
+                                style: TextStyleUtil.inter500(
+                                    fontSize: 14.kh, color: Colors.black),
+                              ),
+                              selectedIcon: Text(
+                                'Price Range',
+                                style: TextStyleUtil.inter500(
+                                    fontSize: 14.kh, color: Colors.black),
+                              ),
+                              label: const SizedBox(),
+                            ),
+                          ],
+                          labelType: NavigationRailLabelType.values[2],
+                        ),
+                        Expanded(
+                          child: PageView(
+                            controller: controller.pageController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              listofbrands(
+                                controller: controller,
+                              ).paddingOnly(
+                                  left: 13.kw, right: 30.kw, top: 17.kh),
+                              const Text('List of Stores'),
+                              const Text('List of Categories'),
+                              priceRange(context).paddingOnly(
+                                  left: 13.kw, right: 30.kw, top: 17.kh),
+                            ],
                           ),
-                          selectedIcon: Text(
-                            'Brand',
-                            style: TextStyleUtil.inter500(
-                                fontSize: 14.kh, color: Colors.black),
-                          ).paddingOnly(
-                              left: 24.kw,
-                              right: 24.kw,
-                              top: 12.kw,
-                              bottom: 12.kw),
-                          label: const SizedBox()),
-                      NavigationRailDestination(
-                        icon: Text(
-                          'Stores',
-                          style: TextStyleUtil.inter500(
-                              fontSize: 14.kh, color: Colors.black),
                         ),
-                        selectedIcon: Text(
-                          'Stores',
-                          style: TextStyleUtil.inter500(
-                              fontSize: 14.kh, color: Colors.black),
-                        ),
-                        label: const SizedBox(),
-                      ),
-                      NavigationRailDestination(
-                        icon: Text(
-                          'Categories',
-                          style: TextStyleUtil.inter500(
-                              fontSize: 14.kh, color: Colors.black),
-                        ),
-                        selectedIcon: Text(
-                          'Categories',
-                          style: TextStyleUtil.inter500(
-                              fontSize: 14.kh, color: Colors.black),
-                        ),
-                        label: const SizedBox(),
-                      ),
-                      NavigationRailDestination(
-                        icon: Text(
-                          'Price Range',
-                          style: TextStyleUtil.inter500(
-                              fontSize: 14.kh, color: Colors.black),
-                        ),
-                        selectedIcon: Text(
-                          'Price Range',
-                          style: TextStyleUtil.inter500(
-                              fontSize: 14.kh, color: Colors.black),
-                        ),
-                        label: const SizedBox(),
-                      ),
-                    ],
-                    labelType: NavigationRailLabelType.values[2],
+                      ],
+                    ),
                   ),
                 ),
-                Expanded(
-                  child: PageView(
-                    controller: controller.pageController,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [Text('test')],
-                  ),
-                ),
-              ],
+              );
+            }),
+        isDismissible: true,
+        isScrollControlled: true);
+  }
+
+  Column priceRange(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Select Price Range',
+          style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '\$${controller.sliderValues[0].toString()} \- \$${controller.sliderValues[1].toString()}',
+              style:
+                  TextStyleUtil.inter700(fontSize: 14.kh, color: Colors.black),
+            ),
+          ],
+        ),
+        FlutterSlider(
+          values: controller.sliderValues,
+          rangeSlider: true,
+          max: 3000,
+          min: 0,
+          trackBar: FlutterSliderTrackBar(
+            activeTrackBar: BoxDecoration(
+              color: context.Green,
             ),
           ),
+          tooltip: FlutterSliderTooltip(
+              textStyle: const TextStyle(color: Colors.transparent),
+              boxStyle: const FlutterSliderTooltipBox(
+                decoration: BoxDecoration(),
+              ),
+              alwaysShowTooltip: false),
+          handler: FlutterSliderHandler(
+            decoration: const BoxDecoration(),
+            child: Container(
+              height: 20.kh,
+              width: 20.kw,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: Border.all(color: context.Green)),
+            ),
+          ),
+          rightHandler: FlutterSliderHandler(
+            decoration: const BoxDecoration(),
+            child: Container(
+              height: 20.kh,
+              width: 20.kw,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: Border.all(color: context.Green)),
+            ),
+          ),
+          onDragging: (handlerIndex, lowerValue, upperValue) {
+            controller.onDragging(handlerIndex, lowerValue, upperValue);
+          },
         ),
-        isDismissible: true);
+      ],
+    );
   }
+}
+
+class listofbrands extends StatelessWidget {
+  //final TextEditingController searchController;
+  final WishlistController controller;
+
+  listofbrands({
+    super.key,
+    //required this.searchController,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFieldSearch(
+            label: '',
+            controller: searchController,
+            initialList: controller.dummyList,
+            textStyle: TextStyleUtil.inter400(
+                fontSize: 14.kh, color: context.GreyNeutral),
+            decoration: InputDecoration(
+              hintText: 'Search ',
+              prefixIcon: Icon(
+                CupertinoIcons.search,
+                color: context.GreyNeutral,
+              ),
+            ),
+          ).paddingOnly(bottom: 12.kw),
+          Row(
+            children: [
+              Expanded(
+                child: Obx(() => CheckboxListTile(
+                      value: controller.selectAll.value,
+                      onChanged: (value) {
+                        controller.selectAll.value = value!;
+
+                        for (int i = 0;
+                            i < controller.itemSelectedStates.length;
+                            i++) {
+                          controller.itemSelectedStates[i].value = value;
+                        }
+                      },
+                    )),
+              ),
+              Text(
+                'Select All',
+                style: TextStyleUtil.inter500(
+                  fontSize: 14.kh,
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                ' (72)',
+                style: TextStyleUtil.inter400(
+                  fontSize: 14.kh,
+                  color: Colors.black,
+                ),
+              )
+            ],
+          ),
+          ListView.builder(
+              itemCount: controller.itemSelectedStates.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return Obx(
+                  () => GestureDetector(
+                    onTap: () {
+                      // Handle the tap event here and update the color
+                      controller.changeItemSelectedState(index);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.check,
+                              size: 20.kh,
+                              color: controller.itemSelectedStates[index].value
+                                  ? Colors.green
+                                  : const Color(0xFFADADAD),
+                            ).paddingOnly(right: 12.kw),
+                            Text(
+                              'Akaar',
+                              style: TextStyleUtil.inter400(
+                                fontSize: 14.kh,
+                                color:
+                                    controller.itemSelectedStates[index].value
+                                        ? Colors.green
+                                        : Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          '21',
+                          style: TextStyleUtil.inter400(
+                            fontSize: 14.kh,
+                            color: controller.itemSelectedStates[index].value
+                                ? Colors.green
+                                : const Color(0xFFADADAD),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).paddingOnly(right: 30.kw, top: 17.kh),
+                );
+              })
+        ],
+      ),
+    );
+  }
+}
+
+void _showSortBottomSheet(BuildContext context) {
+  Get.bottomSheet(Container(
+    decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24.kw))),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Sort',
+              style:
+                  TextStyleUtil.inter500(fontSize: 18.kh, color: Colors.black),
+            ),
+            Icon(
+              CupertinoIcons.xmark,
+              size: 24.kh,
+              color: Colors.black,
+            )
+          ],
+        ).paddingOnly(right: 30.kw),
+        Text(
+          'What\'s New',
+          style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+        ),
+        Text(
+          'Price - low to high',
+          style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+        ),
+        Text(
+          'WPrice - high to low',
+          style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+        ),
+        Text(
+          'Popularity',
+          style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+        ),
+        Text(
+          'Discount',
+          style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+        ),
+        Text(
+          'Customer Rating',
+          style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+        )
+      ],
+    ).paddingOnly(left: 32.kw),
+  ));
 }

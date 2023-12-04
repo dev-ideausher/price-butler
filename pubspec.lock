@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.13.0"
+  another_xlider:
+    dependency: "direct main"
+    description:
+      name: another_xlider
+      sha256: "203ad857d28eddedac3ece5829962c8bae3122a2e7e1f530edc51ead5e496458"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
   archive:
     dependency: transitive
     description:
@@ -161,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  cupertino_range_slider_improved:
+    dependency: "direct main"
+    description:
+      name: cupertino_range_slider_improved
+      sha256: "1843b97902a9add4532d650e22bbe0eb3a2faffbccb059f375ec3611aec27683"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   dio:
     dependency: "direct main"
     description:
@@ -536,6 +552,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.1"
   js:
     dependency: transitive
     description:
@@ -885,6 +909,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "88366a5e95ccb4091feb531021567f76ed3ceddab7424de02a9ac4a335d22a44"
+      url: "https://pub.dev"
+    source: hosted
+    version: "23.2.6"
+  syncfusion_flutter_sliders:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_sliders
+      sha256: c1a8c74167b7962072244e82f7048684eff62523e55b5e5f25447c3bf1fb91f4
+      url: "https://pub.dev"
+    source: hosted
+    version: "23.2.6"
   synchronized:
     dependency: transitive
     description:
@@ -909,6 +949,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
+  textfield_search:
+    dependency: "direct main"
+    description:
+      name: textfield_search
+      sha256: "6f2cc9c140f398ddcebe3f853cf4528a7c3951c4f9d221e2be4968cbe560e496"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.0"
   ticket_widget:
     dependency: "direct main"
     description:

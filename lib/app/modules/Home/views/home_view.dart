@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:pricebutler/app/components/PriceButlerTextField.dart';
 import 'package:pricebutler/app/components/PriceButtleAppBar.dart';
 import 'package:pricebutler/app/components/ViewAllRow.dart';
 import 'package:pricebutler/app/components/brandListviewBuilder.dart';
@@ -13,7 +12,9 @@ import 'package:pricebutler/app/routes/app_pages.dart';
 import 'package:pricebutler/app/services/colors.dart';
 import 'package:pricebutler/app/services/responsive_size.dart';
 import 'package:pricebutler/app/services/text_style_util.dart';
+import 'package:textfield_search/textfield_search.dart';
 
+import '../../pricebuttlerbottombar/controllers/pricebuttlerbottombar_controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -21,6 +22,10 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => HomeController());
+
+    TextEditingController searchController = TextEditingController();
+    PricebuttlerbottombarController priceController = Get.find();
+
     return Scaffold(
         appBar: PriceButtlerAppBar(
           elevation: 1,
@@ -56,7 +61,10 @@ class HomeView extends GetView<HomeController> {
               children: [
                 Column(
                   children: [
-                    PriceButlerTextField(
+                    priceButlerSearchField(
+                      searchController: searchController,
+                      initialList: controller.dummyList,
+                      hintText: 'Search for products, brands and more...',
                       prefixIcon: Icon(
                         CupertinoIcons.search,
                         color: context.GreyNeutral,
@@ -65,9 +73,6 @@ class HomeView extends GetView<HomeController> {
                         CupertinoIcons.mic_fill,
                         color: context.GreyNeutral,
                       ),
-                      hintText: 'Search for products, brands and more...',
-                      textStyle: TextStyleUtil.inter400(
-                          fontSize: 14.kh, color: context.GreyNeutral),
                     ),
                     SizedBox(
                         height: 80,
@@ -121,54 +126,106 @@ class HomeView extends GetView<HomeController> {
                               )
                             ],
                           ),
-                        )
+                        ).paddingOnly(top: 10.kh)
                       ],
-                    )
+                    ).paddingOnly(left: 27.kw, top: 34.kh),
                   ],
                 ),
-                Column(
-                  children: [
-                    ViewAllRow(
-                      label: 'Popular Categories',
-                      onPressed: () {},
-                    ),
-                    priceButlerGridViewBuilder(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 6,
-                      childAspectRatio: 3 / 3,
-                      itemCount: controller.productsList.length,
-                      productsList: controller.productsList,
-                      productsName: controller.productType,
-                      textStyle: TextStyleUtil.inter400(
-                          fontSize: 12.kh, color: Colors.black),
-                    ),
-                    ViewAllRow(
-                      label: 'Deal Of The Day',
-                      onPressed: () {},
-                    ),
-                    SizedBox(
-                      height: 210.kh,
-                      child: HorizontalListViewBuilder(
-                        itemCount: 3,
-                        iconStar: true,
-                        cancelIcon: false,
-                        compareIcon: true,
-                        priceGraphIcon: true,
-                        productImage: controller.productImage,
-                        productNameList: controller.productsNameList,
-                        productDescription: controller.productsDescription,
-                        productCurrentPrice: controller.productsCurrentPrice,
-                        productPastPrice: controller.productsLastPrice,
-                        productTotalReview: controller.productRating,
-                        productRating: controller.productTotalReview,
+                Obx(
+                  () => Column(
+                    children: [
+                      ViewAllRow(
+                        label: 'Popular Categories',
+                        onPressed: () {
+                          priceController.selectedPageIndex.value;
+                          print(priceController.changePage(1));
+                        },
                       ),
-                    ),
-                  ],
-                ).paddingOnly(left: 24.kw, right: 24.kw, top: 36.kh),
+                      priceButlerGridViewBuilder(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 6,
+                        childAspectRatio: 3 / 3,
+                        itemCount: controller.productsList.length,
+                        productsList: controller.productsList,
+                        productsName: controller.productType,
+                        textStyle: TextStyleUtil.inter400(
+                            fontSize: 12.kh, color: Colors.black),
+                      ),
+                      ViewAllRow(
+                        label: 'Deal Of The Day',
+                        onPressed: () {
+                          priceController.selectedPageIndex.value;
+                          print(priceController.changePage(2));
+                        },
+                      ),
+                      SizedBox(
+                        height: 210.kh,
+                        child: HorizontalListViewBuilder(
+                          itemCount: 3,
+                          iconStar: true,
+                          cancelIcon: false,
+                          compareIcon: true,
+                          priceGraphIcon: true,
+                          productImage: controller.productImage,
+                          productNameList: controller.productsNameList,
+                          productDescription: controller.productsDescription,
+                          productCurrentPrice: controller.productsCurrentPrice,
+                          productPastPrice: controller.productsLastPrice,
+                          productTotalReview: controller.productRating,
+                          productRating: controller.productTotalReview,
+                        ),
+                      ),
+                    ],
+                  ).paddingOnly(left: 24.kw, right: 24.kw, top: 36.kh),
+                ),
               ],
             ),
           ),
         ));
+  }
+}
+
+class priceButlerSearchField extends StatelessWidget {
+  final String? hintText;
+  final List? initialList;
+  final TextEditingController searchController;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  const priceButlerSearchField({
+    super.key,
+    this.hintText,
+    this.initialList,
+    required this.searchController,
+    this.prefixIcon,
+    this.suffixIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFieldSearch(
+      initialList: initialList,
+      decoration: InputDecoration(
+        hintText: hintText,
+        filled: true,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        contentPadding: EdgeInsets.all(13.kw),
+        fillColor: const Color(0xFFF2F2F2),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.transparent)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.transparent)),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.red)),
+      ),
+      textStyle:
+          TextStyleUtil.inter400(fontSize: 14.kh, color: context.GreyNeutral),
+      controller: searchController,
+      label: '',
+    );
   }
 }

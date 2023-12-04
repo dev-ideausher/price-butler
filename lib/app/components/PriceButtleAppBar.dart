@@ -4,7 +4,6 @@ import 'package:pricebutler/app/services/responsive_size.dart';
 
 class PriceButtlerAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  final String? label;
   final Widget? leading;
   final Widget? title;
   final List<Widget>? actions;
@@ -15,7 +14,6 @@ class PriceButtlerAppBar extends StatelessWidget
 
   const PriceButtlerAppBar({
     Key? key,
-    this.label,
     this.elevation,
     this.color,
     this.leading,

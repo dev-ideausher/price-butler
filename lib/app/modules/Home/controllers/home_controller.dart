@@ -77,8 +77,9 @@ class HomeController extends GetxController {
   ].obs;
   RxList<String> productTotalReview =
       ['(123)', '(123)', '(123)', '(123)', '(123)', '(123)'].obs;
-  final count = 0.obs;
 
+  RxList<String> dummyList =
+      ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'].obs;
   @override
   void onInit() {
     super.onInit();
@@ -93,6 +94,4 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

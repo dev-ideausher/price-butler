@@ -7,8 +7,13 @@ import '../../../constants/image_constant.dart';
 class WishlistController extends GetxController {
   PageController pageController = PageController();
   SideMenuController sideMenu = SideMenuController();
+  RxList<RxBool> itemSelectedStates = List.generate(10, (_) => false.obs).obs;
+  RxList<double> sliderValues = [0.00, 0.00].obs;
+  RxBool selectAll = false.obs;
   final RxInt currentIndex = 0.obs;
-  //TODO: Implement WishlistController
+  RxList<String> dummyList =
+      ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'].obs;
+  RxBool checkboxValue1 = true.obs;
   RxList<String> productsList = [
     ImageConstant.pngmobilesandtablets,
     ImageConstant.pngappliances,
@@ -63,7 +68,7 @@ class WishlistController extends GetxController {
   ].obs;
   RxList<String> productTotalReview =
       ['(123)', '(123)', '(123)', '(123)', '(123)', '(123)'].obs;
-
+  TextEditingController searchController = TextEditingController();
   @override
   void onInit() {
     super.onInit();
@@ -73,6 +78,7 @@ class WishlistController extends GetxController {
   void onReady() {
     sideMenu.addListener((index) {
       pageController.jumpToPage(index);
+      //searchController;
     });
     super.onReady();
   }
@@ -80,10 +86,20 @@ class WishlistController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    sideMenu.dispose();
   }
 
   changePage(int index) {
     pageController.jumpToPage(index);
+  }
+
+  changeItemSelectedState(int index) {
+    itemSelectedStates[index].value = !itemSelectedStates[index].value;
+    print(index);
+    update();
+  }
+
+  void onDragging(int handlerIndex, double lowerValue, double upperValue) {
+    sliderValues[0] = lowerValue;
+    sliderValues[1] = upperValue;
   }
 }
