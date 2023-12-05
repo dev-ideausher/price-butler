@@ -174,8 +174,6 @@ class WishlistView extends GetView<WishlistController> {
                             selectedIndex: controller.currentIndex.value,
                             indicatorColor: Colors.red,
                             selectedIconTheme: IconThemeData(color: Colors.red),
-                            indicatorShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
                             groupAlignment: -1,
                             unselectedLabelTextStyle: TextStyleUtil.inter400(
                                 fontSize: 10, color: Colors.black),
@@ -194,16 +192,14 @@ class WishlistView extends GetView<WishlistController> {
                                         fontSize: 14.kh, color: Colors.black),
                                   ),
                                   selectedIcon: Container(
-                                    width: 160.kw,
+                                    width: 170.kw,
                                     color: Colors.white,
                                     child: Center(
-                                      child: Text(
-                                        'Brand',
-                                        style: TextStyleUtil.inter500(
-                                            fontSize: 14.kh,
-                                            color: Colors.black),
-                                      ).paddingSymmetric(vertical: 20.kw),
-                                    ),
+                                        child: Text(
+                                      'Brand',
+                                      style: TextStyleUtil.inter500(
+                                          fontSize: 14.kh, color: Colors.black),
+                                    ).paddingSymmetric(vertical: 15.kh)),
                                   ),
                                   label: const SizedBox()),
                               NavigationRailDestination(
@@ -239,7 +235,7 @@ class WishlistView extends GetView<WishlistController> {
                                       'Categories',
                                       style: TextStyleUtil.inter500(
                                           fontSize: 14.kh, color: Colors.black),
-                                    ).paddingSymmetric(vertical: 20.kw),
+                                    ).paddingSymmetric(vertical: 15.kw),
                                   ),
                                 ),
                                 label: const SizedBox(),
@@ -258,13 +254,13 @@ class WishlistView extends GetView<WishlistController> {
                                       'Price Range',
                                       style: TextStyleUtil.inter500(
                                           fontSize: 14.kh, color: Colors.black),
-                                    ).paddingSymmetric(vertical: 20.kw),
+                                    ).paddingSymmetric(vertical: 15.kw),
                                   ),
                                 ),
                                 label: const SizedBox(),
                               ),
                             ],
-                            labelType: NavigationRailLabelType.values[2],
+                            labelType: NavigationRailLabelType.selected,
                           ),
                         ),
                         Expanded(
@@ -392,6 +388,7 @@ class listofbrands extends StatelessWidget {
                 children: [
                   Checkbox(
                     value: controller.selectAll.value,
+                    activeColor: context.Green,
                     onChanged: (value) {
                       controller.selectAll.value = value!;
 
