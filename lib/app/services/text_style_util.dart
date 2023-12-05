@@ -79,13 +79,14 @@ class TextStyleUtil {
 
   static TextStyle inter500({
     Color color = Colors.white,
+    FontWeight? fontWeight,
     required double fontSize,
   }) {
     return TextStyle(
       fontFamily: 'Inter',
       color: color,
       fontSize: fontSize,
-      fontWeight: FontWeight.w500,
+      fontWeight: fontWeight ?? FontWeight.w500,
     );
   }
 

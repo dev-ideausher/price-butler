@@ -124,7 +124,9 @@ class SignInView extends GetView<SignInController> {
                   ),
                 ).paddingOnly(top: 10.kh, bottom: 31.kh),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.PRICEBUTTLERBOTTOMBAR);
+                  },
                   child: Text(
                     'Skip for now',
                     style: TextStyleUtil.inter400(

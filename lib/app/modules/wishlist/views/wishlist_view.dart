@@ -139,7 +139,7 @@ class WishlistView extends GetView<WishlistController> {
 
     Get.bottomSheet(
         DraggableScrollableSheet(
-            initialChildSize: 0.9,
+            initialChildSize: 0.8,
             builder: (BuildContext context, ScrollController scrollController) {
               return ClipRRect(
                 borderRadius:
@@ -153,83 +153,119 @@ class WishlistView extends GetView<WishlistController> {
                       style: TextStyleUtil.inter500(
                           fontSize: 18.kh, color: Colors.black),
                     ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Clear All',
+                            style: TextStyleUtil.inter400(
+                                fontSize: 14.kh, color: context.oneStarColor),
+                          )).paddingOnly(right: 24.kw)
+                    ],
                   ),
                   body: Obx(
                     () => Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        NavigationRail(
-                          selectedIndex: controller.currentIndex.value,
-                          indicatorColor: Colors.red,
-                          groupAlignment: -1,
-                          unselectedLabelTextStyle: TextStyleUtil.inter400(
-                              fontSize: 10, color: Colors.black),
-                          selectedLabelTextStyle: TextStyleUtil.inter400(
-                              fontSize: 10, color: context.Green),
-                          backgroundColor: const Color(0xFFEFF1F4),
-                          onDestinationSelected: (int index) {
-                            controller.currentIndex.value = index;
-                            controller.changePage(index);
-                          },
-                          destinations: <NavigationRailDestination>[
-                            NavigationRailDestination(
+                        SizedBox(
+                          width: 150.kw,
+                          child: NavigationRail(
+                            selectedIndex: controller.currentIndex.value,
+                            indicatorColor: Colors.red,
+                            selectedIconTheme: IconThemeData(color: Colors.red),
+                            indicatorShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            groupAlignment: -1,
+                            unselectedLabelTextStyle: TextStyleUtil.inter400(
+                                fontSize: 10, color: Colors.black),
+                            selectedLabelTextStyle: TextStyleUtil.inter400(
+                                fontSize: 10, color: context.Green),
+                            backgroundColor: const Color(0xFFEFF1F4),
+                            onDestinationSelected: (int index) {
+                              controller.currentIndex.value = index;
+                              controller.changePage(index);
+                            },
+                            destinations: <NavigationRailDestination>[
+                              NavigationRailDestination(
+                                  icon: Text(
+                                    'Brand',
+                                    style: TextStyleUtil.inter500(
+                                        fontSize: 14.kh, color: Colors.black),
+                                  ),
+                                  selectedIcon: Container(
+                                    width: 160.kw,
+                                    color: Colors.white,
+                                    child: Center(
+                                      child: Text(
+                                        'Brand',
+                                        style: TextStyleUtil.inter500(
+                                            fontSize: 14.kh,
+                                            color: Colors.black),
+                                      ).paddingSymmetric(vertical: 20.kw),
+                                    ),
+                                  ),
+                                  label: const SizedBox()),
+                              NavigationRailDestination(
                                 icon: Text(
-                                  'Brand',
+                                  'Stores',
                                   style: TextStyleUtil.inter500(
                                       fontSize: 14.kh, color: Colors.black),
                                 ),
-                                selectedIcon: Text(
-                                  'Brand',
+                                selectedIcon: Container(
+                                  width: 160.kw,
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Text(
+                                      'Stores',
+                                      style: TextStyleUtil.inter500(
+                                          fontSize: 14.kh, color: Colors.black),
+                                    ).paddingSymmetric(vertical: 20.kw),
+                                  ),
+                                ),
+                                label: const SizedBox(),
+                              ),
+                              NavigationRailDestination(
+                                icon: Text(
+                                  'Categories',
                                   style: TextStyleUtil.inter500(
                                       fontSize: 14.kh, color: Colors.black),
-                                ).paddingOnly(
-                                    left: 24.kw,
-                                    right: 24.kw,
-                                    top: 12.kw,
-                                    bottom: 12.kw),
-                                label: const SizedBox()),
-                            NavigationRailDestination(
-                              icon: Text(
-                                'Stores',
-                                style: TextStyleUtil.inter500(
-                                    fontSize: 14.kh, color: Colors.black),
+                                ),
+                                selectedIcon: Container(
+                                  width: 160.kw,
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Text(
+                                      'Categories',
+                                      style: TextStyleUtil.inter500(
+                                          fontSize: 14.kh, color: Colors.black),
+                                    ).paddingSymmetric(vertical: 20.kw),
+                                  ),
+                                ),
+                                label: const SizedBox(),
                               ),
-                              selectedIcon: Text(
-                                'Stores',
-                                style: TextStyleUtil.inter500(
-                                    fontSize: 14.kh, color: Colors.black),
+                              NavigationRailDestination(
+                                icon: Text(
+                                  'Price Range',
+                                  style: TextStyleUtil.inter500(
+                                      fontSize: 14.kh, color: Colors.black),
+                                ),
+                                selectedIcon: Container(
+                                  width: 160.kw,
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Text(
+                                      'Price Range',
+                                      style: TextStyleUtil.inter500(
+                                          fontSize: 14.kh, color: Colors.black),
+                                    ).paddingSymmetric(vertical: 20.kw),
+                                  ),
+                                ),
+                                label: const SizedBox(),
                               ),
-                              label: const SizedBox(),
-                            ),
-                            NavigationRailDestination(
-                              icon: Text(
-                                'Categories',
-                                style: TextStyleUtil.inter500(
-                                    fontSize: 14.kh, color: Colors.black),
-                              ),
-                              selectedIcon: Text(
-                                'Categories',
-                                style: TextStyleUtil.inter500(
-                                    fontSize: 14.kh, color: Colors.black),
-                              ),
-                              label: const SizedBox(),
-                            ),
-                            NavigationRailDestination(
-                              icon: Text(
-                                'Price Range',
-                                style: TextStyleUtil.inter500(
-                                    fontSize: 14.kh, color: Colors.black),
-                              ),
-                              selectedIcon: Text(
-                                'Price Range',
-                                style: TextStyleUtil.inter500(
-                                    fontSize: 14.kh, color: Colors.black),
-                              ),
-                              label: const SizedBox(),
-                            ),
-                          ],
-                          labelType: NavigationRailLabelType.values[2],
+                            ],
+                            labelType: NavigationRailLabelType.values[2],
+                          ),
                         ),
                         Expanded(
                           child: PageView(
@@ -259,11 +295,12 @@ class WishlistView extends GetView<WishlistController> {
 
   Column priceRange(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           'Select Price Range',
           style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
-        ),
+        ).paddingOnly(bottom: 10.kh),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -327,7 +364,6 @@ class listofbrands extends StatelessWidget {
 
   listofbrands({
     super.key,
-    //required this.searchController,
     required this.controller,
   });
 
@@ -336,7 +372,7 @@ class listofbrands extends StatelessWidget {
     final TextEditingController searchController = TextEditingController();
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFieldSearch(
             label: '',
@@ -352,38 +388,36 @@ class listofbrands extends StatelessWidget {
               ),
             ),
           ).paddingOnly(bottom: 12.kw),
-          Row(
-            children: [
-              Expanded(
-                child: Obx(() => CheckboxListTile(
-                      value: controller.selectAll.value,
-                      onChanged: (value) {
-                        controller.selectAll.value = value!;
+          Obx(() => Row(
+                children: [
+                  Checkbox(
+                    value: controller.selectAll.value,
+                    onChanged: (value) {
+                      controller.selectAll.value = value!;
 
-                        for (int i = 0;
-                            i < controller.itemSelectedStates.length;
-                            i++) {
-                          controller.itemSelectedStates[i].value = value;
-                        }
-                      },
-                    )),
-              ),
-              Text(
-                'Select All',
-                style: TextStyleUtil.inter500(
-                  fontSize: 14.kh,
-                  color: Colors.black,
-                ),
-              ),
-              Text(
-                ' (72)',
-                style: TextStyleUtil.inter400(
-                  fontSize: 14.kh,
-                  color: Colors.black,
-                ),
-              )
-            ],
-          ),
+                      for (int i = 0;
+                          i < controller.itemSelectedStates.length;
+                          i++) {
+                        controller.itemSelectedStates[i].value = value;
+                      }
+                    },
+                  ),
+                  Text(
+                    'Select All',
+                    style: TextStyleUtil.inter500(
+                      fontSize: 14.kh,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    ' (72)',
+                    style: TextStyleUtil.inter400(
+                      fontSize: 14.kh,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              )),
           ListView.builder(
               itemCount: controller.itemSelectedStates.length,
               shrinkWrap: true,
@@ -445,13 +479,13 @@ void _showSortBottomSheet(BuildContext context) {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.kw))),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Sort',
+              'Sort By',
               style:
                   TextStyleUtil.inter500(fontSize: 18.kh, color: Colors.black),
             ),
@@ -471,7 +505,7 @@ void _showSortBottomSheet(BuildContext context) {
           style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
         ),
         Text(
-          'WPrice - high to low',
+          'Price - high to low',
           style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
         ),
         Text(

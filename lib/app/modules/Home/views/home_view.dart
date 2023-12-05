@@ -153,7 +153,7 @@ class HomeView extends GetView<HomeController> {
                             fontSize: 12.kh, color: Colors.black),
                       ),
                       ViewAllRow(
-                        label: 'Deal Of The Day',
+                        label: 'Deal of the Day',
                         onPressed: () {
                           priceController.selectedPageIndex.value;
                           print(priceController.changePage(2));

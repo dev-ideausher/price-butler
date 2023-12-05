@@ -17,7 +17,7 @@ class NotificationView extends GetView<NotificationController> {
     return Scaffold(
         appBar: PriceButtlerAppBar(
           elevation: 0,
-          title: Text('Notification',
+          title: Text('Notifications',
               style:
                   TextStyleUtil.inter500(fontSize: 20.kh, color: Colors.black)),
         ),

@@ -91,6 +91,7 @@ class ProfileView extends GetView<ProfileController> {
                       ).paddingOnly(bottom: 16.kh),
                       PriceButtlerButton(
                           onpressed: () {},
+                          profilebutton: true,
                           label: '680 SuperCoins',
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.kw),

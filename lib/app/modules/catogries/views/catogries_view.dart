@@ -200,6 +200,27 @@ class electronicsDetails extends StatelessWidget {
                     })).paddingOnly(left: 19.kw, right: 24.kw),
           ],
         ),
+        ExpansionTile(
+          title: Text(
+            'Wearable Technology',
+            style: TextStyleUtil.inter500(fontSize: 14.kh, color: Colors.black),
+          ),
+          //backgroundColor: Colors.red,
+          children: [
+            Container(
+                color: const Color(0xFFEFF1F4),
+                child: ListView.builder(
+                    itemCount: itemCount,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Text(
+                        subcategories[index],
+                        style: TextStyleUtil.inter400(
+                            fontSize: 14.kh, color: context.GreyNeutral),
+                      ).paddingSymmetric(vertical: 16.kh, horizontal: 12.kw);
+                    })).paddingOnly(left: 19.kw, right: 24.kw),
+          ],
+        ),
       ],
     );
   }

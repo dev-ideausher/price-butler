@@ -52,7 +52,7 @@ class ReferandearnView extends GetView<ReferandearnController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Refer Code',
+                            'Referral Code',
                             style: TextStyleUtil.inter700(
                                 fontSize: 16.kh, color: Colors.black),
                           ).paddingOnly(bottom: 9.kh),
@@ -80,6 +80,11 @@ class ReferandearnView extends GetView<ReferandearnController> {
                               ),
                             ),
                           ).paddingOnly(bottom: 35.kh),
+                          Text(
+                            'How does it work?',
+                            style: TextStyleUtil.inter700(
+                                fontSize: 16.kh, color: Colors.black),
+                          ).paddingOnly(bottom: 16.kh),
                           BulletedList(
                             listItems: [
                               'It is a long established fact that a reader will be distracted by the ?',

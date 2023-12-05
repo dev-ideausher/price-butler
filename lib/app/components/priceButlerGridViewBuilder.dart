@@ -152,7 +152,9 @@ class wishListGridViewBuilder extends StatelessWidget {
                     Text(
                       '\$${productCurrentPrice![index]}',
                       style: TextStyleUtil.inter500(
-                          fontSize: 12.kh, color: context.GreyNeutral),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.kh,
+                          color: Colors.black),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

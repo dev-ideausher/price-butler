@@ -7,6 +7,7 @@ import 'package:pricebutler/app/components/PriceButtleButton.dart';
 import 'package:pricebutler/app/components/common_image_view.dart';
 import 'package:pricebutler/app/components/horizontalListViewBuilder.dart';
 import 'package:pricebutler/app/components/storesListViewBuilder.dart';
+import 'package:pricebutler/app/modules/compare/views/compare_view.dart';
 import 'package:pricebutler/app/services/colors.dart';
 import 'package:pricebutler/app/services/responsive_size.dart';
 import 'package:pricebutler/app/services/text_style_util.dart';
@@ -15,6 +16,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../components/PriceButtleAppBar.dart';
 import '../../../components/ViewAllRow.dart';
 import '../../../constants/image_constant.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/produc_details_controller.dart';
 
 class ProducDetailsView extends GetView<ProducDetailsController> {
@@ -24,7 +26,6 @@ class ProducDetailsView extends GetView<ProducDetailsController> {
     final Map arguments = Get.arguments as Map;
     final pageController = PageController();
     int currentPage = 0;
-    // int totalPages = 3;
 
     return Scaffold(
       bottomNavigationBar: Card(
@@ -42,7 +43,23 @@ class ProducDetailsView extends GetView<ProducDetailsController> {
                 color: context.buttonUnfilledColor),
             PriceButtlerButton(
                 onpressed: () {
-                  _showCompareBottomSheet(context, arguments);
+                  if (controller.compareList.length == 4) {
+                    Get.dialog(addProductAlert());
+                    Get.bottomSheet(
+                      comparebottomsheet(
+                          controller: controller, arguments: arguments),
+                      isScrollControlled: true,
+                      enableDrag: true,
+                    );
+                  } else {
+                    controller.addToCompareList(arguments);
+                    Get.bottomSheet(
+                      comparebottomsheet(
+                          controller: controller, arguments: arguments),
+                      isScrollControlled: true,
+                      enableDrag: true,
+                    );
+                  }
                 },
                 label: 'Compare Now',
                 shape: RoundedRectangleBorder(
@@ -320,7 +337,7 @@ class ProducDetailsView extends GetView<ProducDetailsController> {
                 Row(
                   children: [
                     Text(
-                      '24',
+                      '2.4',
                       style: TextStyleUtil.inter500(
                           fontSize: 24.kh, color: Colors.black),
                     ),
@@ -522,6 +539,233 @@ class ProducDetailsView extends GetView<ProducDetailsController> {
   }
 }
 
+class comparebottomsheet extends StatelessWidget {
+  const comparebottomsheet({
+    super.key,
+    required this.controller,
+    required this.arguments,
+  });
+
+  final ProducDetailsController controller;
+
+  final Map arguments;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Compare',
+                        style: TextStyleUtil.inter500(
+                          fontSize: 18.kh,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 18.kh,
+                        child: VerticalDivider(
+                          thickness: 1,
+                          color: context.GreyNeutral,
+                        ),
+                      ),
+                      Text(
+                        '${controller.compareList.length} product added',
+                        style: TextStyleUtil.inter500(
+                          fontSize: 14.kh,
+                          color: context.GreyNeutral,
+                        ),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      controller.compareList.clear();
+                      Get.back();
+                    },
+                    icon: const Icon(CupertinoIcons.xmark),
+                  ),
+                ],
+              ),
+              SingleChildScrollView(
+                scrollDirection:
+                    Axis.horizontal, // Set scroll direction to horizontal
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // Product list
+                    SizedBox(
+                      height: 200,
+                      child: compareListView(controller: controller),
+                    ),
+                    controller.compareList.length < 2
+                        ? SizedBox(
+                            height: 200,
+                            child: Card(
+                              color: Color(0xFFF2F2F2),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 47.kh,
+                                      width: 47.kw,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: context.Green,
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
+                                    ).paddingOnly(bottom: 6.kh),
+                                    Text(
+                                      'Add Product',
+                                      style: TextStyleUtil.inter400(
+                                        fontSize: 12.kh,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ).paddingSymmetric(
+                                    horizontal: 55.kw, vertical: 59.kh),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
+                  ],
+                ),
+              ).paddingOnly(bottom: 18.kh),
+              controller.compareList.length > 1
+                  ? PriceButtlerButton(
+                      onpressed: () {
+                        Get.to(() => CompareView(),
+                            arguments: controller.compareList);
+                      },
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: context.buttonFillColor),
+                        borderRadius: BorderRadius.circular(8.kh),
+                      ),
+                      label: 'Compare',
+                      labelStyle: TextStyleUtil.inter400(
+                        fontSize: 16.kh,
+                      ),
+                      color: context.buttonFillColor,
+                    )
+                  : PriceButtlerButton(
+                      onpressed: () {
+                        controller.compareList.length == 4
+                            ? Get.dialog(addProductAlert())
+                            : Get.toNamed(
+                                Routes.PRICEBUTTLERBOTTOMBAR,
+                                arguments: arguments,
+                              );
+                      },
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: context.buttonFillColor),
+                        borderRadius: BorderRadius.circular(8.kh),
+                      ),
+                      label: 'Add Product',
+                      labelStyle: TextStyleUtil.inter400(
+                        fontSize: 16.kh,
+                        color: context.buttonFillColor,
+                      ),
+                      color: context.buttonUnfilledColor,
+                    ),
+            ],
+          ).paddingSymmetric(horizontal: 24.kw, vertical: 24.kh),
+        ),
+      ),
+    );
+  }
+}
+
+class compareListView extends StatelessWidget {
+  const compareListView({
+    super.key,
+    required this.controller,
+  });
+
+  final ProducDetailsController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: controller.compareList.length,
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int index) {
+        print(controller.compareList);
+        Map<dynamic, dynamic> product = controller.compareList[index];
+        return SizedBox(
+            width: 182.kw,
+            child: Card(
+              elevation: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          controller.compareList.remove(product);
+                        },
+                        child: Icon(
+                          CupertinoIcons.xmark,
+                          size: 18.kh,
+                        ),
+                      )
+                    ],
+                  ),
+                  Image.asset(
+                    product['productImage'],
+                  ),
+                  Text(
+                    product['productName'],
+                    style: TextStyleUtil.inter700(
+                        fontSize: 12.kh, color: Colors.black),
+                  ),
+                  Text(
+                    product['productDescription'],
+                    style: TextStyleUtil.inter400(
+                        fontSize: 12.kh, color: context.GreyNeutral),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        product['productCurrentPrice'],
+                        style: TextStyleUtil.inter500(
+                            fontSize: 12.kh, color: Colors.black),
+                      ),
+                      Text(
+                        product['productPastPrice'],
+                        style: TextStyleUtil.interStrike400(
+                            fontSize: 10.kh, color: context.GreyNeutral),
+                      ),
+                    ],
+                  )
+                ],
+              ).paddingAll(8.kw),
+            )).paddingOnly(right: 16.kw);
+      },
+    );
+  }
+}
+
 class productOverview extends StatelessWidget {
   const productOverview({
     super.key,
@@ -591,46 +835,25 @@ class productOverview extends StatelessWidget {
   }
 }
 
-void _showCompareBottomSheet(
-    BuildContext context, Map<dynamic, dynamic> arguments) {
+void showShareBottomSheet() {
   Get.bottomSheet(
       SingleChildScrollView(
         child: Container(
-          //height: 332.kh,
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Compare',
-                        style: TextStyleUtil.inter500(
-                          fontSize: 18.kh,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 18.kh,
-                        child: VerticalDivider(
-                          thickness: 1,
-                          color: context.GreyNeutral,
-                        ),
-                      ),
-                      Text(
-                        '1 product added',
-                        style: TextStyleUtil.inter500(
-                          fontSize: 14.kh,
-                          color: context.GreyNeutral,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Share via',
+                    style: TextStyleUtil.inter500(
+                      fontSize: 18.kh,
+                      color: Colors.black,
+                    ),
                   ),
                   IconButton(
                     onPressed: () {
@@ -640,125 +863,26 @@ void _showCompareBottomSheet(
                   )
                 ],
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 195.kh,
-                    //width: 193.kw,
-                    child: HorizontalListViewBuilder(
-                      itemCount: 1,
-                      iconStar: false,
-                      cancelIcon: true,
-                      productImage: [
-                        arguments['productImage'],
-                      ],
-                      productNameList: [arguments['productName']],
-                      productDescription: [arguments['productDescription']],
-                      productCurrentPrice: [arguments['productCurrentPrice']],
-                      productPastPrice: [
-                        arguments['productPastPrice'],
-                      ],
-                      productTotalReview: [''],
-                      productRating: [''],
-                      compareIcon: false,
-                      priceGraphIcon: false,
-                    ),
-                  ),
-                  Card(
-                    color: Color(0xFFF2F2F2),
-                    child: Center(
-                        child: Column(
-                      children: [
-                        Container(
-                          height: 47.kh,
-                          width: 47.kw,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: context.Green),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.add),
-                          ),
-                        ).paddingOnly(bottom: 6.kh),
-                        Text(
-                          'Add Product',
-                          style: TextStyleUtil.inter400(
-                            fontSize: 12.kh,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ).paddingSymmetric(horizontal: 55.kw, vertical: 59.kh)),
-                  )
-                ],
-              ).paddingOnly(bottom: 18.kh),
-              PriceButtlerButton(
-                  onpressed: () {},
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(color: context.buttonFillColor),
-                      borderRadius: BorderRadius.circular(8.kh)),
-                  label: 'Add Product',
-                  labelStyle: TextStyleUtil.inter400(
-                      fontSize: 16.kh, color: context.buttonFillColor),
-                  color: context.buttonUnfilledColor)
+              GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                ),
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return _buildSocialRow(
+                    index: index,
+                    onTap: () {
+                      Get.back();
+                    },
+                  );
+                },
+              ),
             ],
           ).paddingSymmetric(horizontal: 24.kw, vertical: 24.kh),
         ),
       ),
       isScrollControlled: true);
-}
-
-void showShareBottomSheet() {
-  Get.bottomSheet(
-    SingleChildScrollView(
-      child: Container(
-        height: 252.kh,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Share via',
-                  style: TextStyleUtil.inter500(
-                    fontSize: 18.kh,
-                    color: Colors.black,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(CupertinoIcons.xmark),
-                )
-              ],
-            ),
-            GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-              ),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return _buildSocialRow(
-                  index: index,
-                  onTap: () {
-                    // Handle share action for each platform
-                    // Implement your logic here
-                    Get.back();
-                  },
-                );
-              },
-            ),
-          ],
-        ).paddingSymmetric(horizontal: 24.kw, vertical: 24.kh),
-      ),
-    ),
-  );
 }
 
 Widget _buildSocialRow({required int index, required VoidCallback onTap}) {
@@ -768,6 +892,7 @@ Widget _buildSocialRow({required int index, required VoidCallback onTap}) {
     {'imagePath': ImageConstant.pngWhatsapp, 'text': 'Whatsapp'},
     {'imagePath': ImageConstant.pngLinkedin, 'text': 'Linkedin'},
     {'svgPath': ImageConstant.svgtwitter, 'text': 'Twitter'},
+    {'imagePath': ImageConstant.pngCopy, 'text': 'Copy Link'},
   ];
 
   return InkWell(

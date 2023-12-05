@@ -11,6 +11,8 @@ class CompareController extends GetxController {
   RxList<String> productsNameList = [
     'Apple Watch SE 2nd Gen 44mm (GPS + Cellular)',
     'Appliance',
+    'Appliance',
+    'Appliance',
   ].obs;
   RxList<String> productsDescription = [
     '64GB Memory & lpre...',

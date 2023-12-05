@@ -7,16 +7,16 @@ class CatogriesController extends GetxController {
   final SideMenuController sideMenuController = SideMenuController();
   final PageController pageController = PageController();
   RxList<String> subcatogries = [
-    'Smart Phone',
+    'SmartPhones',
     'Cases And Covers',
     'Screen Protectors',
-    'Charger And Cabels',
+    'Chargers And Cabels',
   ].obs;
   RxList<String> subcatogries1 = [
     'Microwaves',
     'Mixer And Grinders',
     'Screen Protectors',
-    'Charger And Cabels',
+    'Chargers And Cabels',
   ].obs;
   final RxBool isSelected = false.obs;
   final RxInt currentIndex = 0.obs;

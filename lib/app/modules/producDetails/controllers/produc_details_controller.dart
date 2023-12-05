@@ -89,9 +89,17 @@ class ProducDetailsController extends GetxController {
       ['(123)', '(123)', '(123)', '(123)', '(123)', '(123)'].obs;
 
   final count = 0.obs;
+  final RxList<Map<dynamic, dynamic>> compareList =
+      <Map<dynamic, dynamic>>[].obs;
+  void addToCompareList(Map<dynamic, dynamic> arguments) {
+    compareList.add(arguments);
+  }
+
   @override
   void onInit() {
     super.onInit();
+    //compareList.clear();
+    print('compare list: $compareList');
   }
 
   @override
@@ -102,6 +110,7 @@ class ProducDetailsController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    //compareList.clear();
   }
 
   void increment() => count.value++;

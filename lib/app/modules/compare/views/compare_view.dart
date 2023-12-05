@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -62,7 +63,11 @@ class CompareView extends GetView<CompareController> {
                       productRating: controller.productTotalReview,
                     )).paddingOnly(bottom: 22.kh),
                 PriceButtlerButton(
-                    onpressed: () {},
+                    onpressed: () {
+                      controller.productsNameList.length == 4
+                          ? Get.dialog(addProductAlert())
+                          : SizedBox();
+                    },
                     label: 'Add Product',
                     labelStyle: TextStyleUtil.inter400(
                         fontSize: 16.kh, color: context.buttonFillColor),
@@ -123,6 +128,52 @@ class CompareView extends GetView<CompareController> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class addProductAlert extends StatelessWidget {
+  const addProductAlert({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(36.kw)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                CupertinoIcons.xmark,
+                color: Colors.black,
+                size: 24.kw,
+              )),
+          Center(
+            child: Text(
+              'Alert',
+              textAlign: TextAlign.center,
+              style:
+                  TextStyleUtil.inter700(fontSize: 24.kh, color: Colors.black),
+            ),
+          ),
+          Text(
+            'You can’t compare more than 4 products at a time',
+            style: TextStyleUtil.inter400(fontSize: 14.kh, color: Colors.black),
+          ).paddingOnly(top: 9.kh, bottom: 23.kh),
+          PriceButtlerButton(
+              onpressed: () {
+                Get.back();
+              },
+              label: 'OK',
+              labelStyle:
+                  TextStyleUtil.inter400(fontSize: 16.kh, color: Colors.white),
+              color: context.Green),
+        ],
       ),
     );
   }
