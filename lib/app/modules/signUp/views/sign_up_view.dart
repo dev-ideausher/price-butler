@@ -58,7 +58,6 @@ class SignUpView extends GetView<SignUpController> {
                       () => Checkbox(
                         value:
                             controller.isTicked.value, // Use controller value
-
                         activeColor: context.Green,
                         onChanged: (value) {
                           controller.isTicked.value = value ?? false;

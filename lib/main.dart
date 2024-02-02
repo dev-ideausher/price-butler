@@ -1,13 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pricebutler/app/modules/splash/bindings/splash_binding.dart';
+import 'package:pricebutler/app/services/auth.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/services/storage.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await initGetServices();
   SystemChrome.setPreferredOrientations(
@@ -33,4 +37,5 @@ Future<void> main() async {
 
 Future<void> initGetServices() async {
   await Get.putAsync<GetStorageService>(() => GetStorageService().initState());
+  await Get.putAsync<AuthService>(() async => AuthService());
 }

@@ -6,7 +6,6 @@ import 'package:pricebutler/app/components/PriceButtleAppBar.dart';
 import 'package:pricebutler/app/components/PriceButtleButton.dart';
 import 'package:pricebutler/app/components/common_image_view.dart';
 import 'package:pricebutler/app/constants/image_constant.dart';
-import 'package:pricebutler/app/routes/app_pages.dart';
 import 'package:pricebutler/app/services/colors.dart';
 import 'package:pricebutler/app/services/responsive_size.dart';
 import 'package:pricebutler/app/services/text_style_util.dart';
@@ -44,14 +43,19 @@ class LoginOtpAuthenticationView
                     fontSize: 16, color: context.GreyNeutral),
               ),
               OtpTextField(
-                numberOfFields: 4,
-                fieldWidth: 64.kw,
+                numberOfFields: 6,
+                fieldWidth: 50.kw,
                 filled: true,
                 fillColor: context.primaryLightGreen03,
                 showFieldAsBox: true,
                 focusedBorderColor: context.Green,
                 borderRadius: BorderRadius.circular(8.kw),
-                onCodeChanged: (String code) {},
+                onCodeChanged: (String code) {
+                  controller.otp.value = code;
+                },
+                onSubmit: (code) {
+                  controller.otp.value = code;
+                },
               ).paddingOnly(top: 38.kh, bottom: 16.kh),
               RichText(
                 text: TextSpan(
@@ -74,7 +78,7 @@ class LoginOtpAuthenticationView
               ).paddingOnly(top: 10.kh, bottom: 31.kh),
               PriceButtlerButton(
                   onpressed: () {
-                    Get.toNamed(Routes.LOGIN_SUCCESSFUL);
+                    controller.verifyOTP();
                   },
                   label: 'Verify Otp',
                   labelStyle: TextStyleUtil.inter400(fontSize: 16.kh),

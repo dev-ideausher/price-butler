@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "546453705130",
+    "firebase_url": "https://price-butlers-llc-c31ed-default-rtdb.firebaseio.com",
+    "project_id": "price-butlers-llc-c31ed",
+    "storage_bucket": "price-butlers-llc-c31ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546453705130:android:447db449a3617c6b565bd3",
+        "android_client_info": {
+          "package_name": "com.example.pricebutler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546453705130-h4agdj4765es1l55fljgi7494jip8bk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuMkzaTxDyjejIYl0bkTzdjtsaTIzwCNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546453705130-h4agdj4765es1l55fljgi7494jip8bk1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

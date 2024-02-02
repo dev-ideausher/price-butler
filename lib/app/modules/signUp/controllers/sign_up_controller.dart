@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pricebutler/app/services/auth.dart';
 
 import '../../../routes/app_pages.dart';
+import '../../../services/dio/api_service.dart';
 
 class SignUpController extends GetxController {
   //TODO: Implement SignUpController
@@ -9,13 +12,23 @@ class SignUpController extends GetxController {
   final TextEditingController phoneNumberController = TextEditingController();
   RxBool isTicked = false.obs;
   final phoneNumber = ''.obs;
-  final name = ''.obs;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final RxString name = ''.obs;
 
   // Add an action for handling the button press
-  void handleButtonPress() {
+  Future<void> handleButtonPress() async {
     if (phoneNumber.isNotEmpty) {
-      Get.toNamed(Routes.SIGN_UP_OTP_AUTHENTICATION,
-          arguments: phoneNumber.value);
+      String enteredName = name.value;
+
+      Map<String, dynamic> userData = {
+        "name": enteredName,
+      };
+
+      await APIManager.postLoginOnboarding(body: userData).then((value) => {
+            Get.find<AuthService>()
+                .mobileOtp(phoneno: '+91' + phoneNumber.value),
+            Get.toNamed(Routes.LOGIN_OTP_AUTHENTICATION)
+          });
     }
   }
 

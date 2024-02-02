@@ -164,20 +164,25 @@ class ProfileView extends GetView<ProfileController> {
                               thickness: 8.kh,
                               color: context.progressBarColor,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.logout,
-                                  size: 24.kh,
-                                ).paddingOnly(right: 12.kw),
-                                Text('Logout',
-                                    style: TextStyleUtil.inter400(
-                                        fontSize: 16.kh,
-                                        color: const Color(0xFF424244)))
-                              ],
-                            ).paddingSymmetric(
-                                horizontal: 30.kw, vertical: 20.kh)
+                            GestureDetector(
+                              onTap: (){
+                                controller.logout();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.logout,
+                                    size: 24.kh,
+                                  ).paddingOnly(right: 12.kw),
+                                  Text('Logout',
+                                      style: TextStyleUtil.inter400(
+                                          fontSize: 16.kh,
+                                          color: const Color(0xFF424244)))
+                                ],
+                              ).paddingSymmetric(
+                                  horizontal: 30.kw, vertical: 20.kh),
+                            )
                           ],
                         ),
                       ))

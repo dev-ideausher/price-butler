@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:pricebutler/app/constants/image_constant.dart';
 import 'package:pricebutler/app/routes/app_pages.dart';
 
+import '../../../services/auth.dart';
+
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
 
@@ -46,4 +48,13 @@ class ProfileController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  logout() async {
+    try {
+      await Get.find<AuthService>().logOutUser();
+      Get.offNamed(Routes.SIGN_IN);
+    } catch (e) {
+      print('Logout error $e');
+    }
+  }
 }
