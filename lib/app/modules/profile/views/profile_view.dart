@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pricebutler/app/components/PriceButlerTextField.dart';
 import 'package:pricebutler/app/components/PriceButtleButton.dart';
 import 'package:pricebutler/app/components/common_image_view.dart';
 import 'package:pricebutler/app/constants/image_constant.dart';
@@ -15,184 +16,239 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => ProfileController());
-    return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF1C926D),
-                    Color(0xFF045A40),
-                  ],
-                  begin: Alignment.centerRight,
-                  end: Alignment.bottomRight,
-                  stops: [
-                    0,
-                    1,
+    return GestureDetector(
+      onTap: () {
+        controller.isEditMode.value = false;
+      },
+      child: Scaffold(
+          body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFF1C926D),
+                      Color(0xFF045A40),
+                    ],
+                    begin: Alignment.centerRight,
+                    end: Alignment.bottomRight,
+                    stops: [
+                      0,
+                      1,
+                    ],
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Profile',
+                          style: TextStyleUtil.inter500(
+                              fontSize: 20.kh, color: Colors.white),
+                        ).paddingOnly(bottom: 22.kh),
+                        Row(
+                          children: [
+                            Container(
+                              height: 56.kh,
+                              width: 56.kw,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Colors.white, width: 1.kw)),
+                              child: Center(
+                                child: Text(
+                                  'NK',
+                                  style:
+                                      TextStyleUtil.inter500(fontSize: 18.kh),
+                                ),
+                              ),
+                            ).paddingOnly(right: 13.kw),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      // Use Obx to listen for changes in the edit mode
+                                      Obx(() =>
+                                          // Check if edit mode is enabled
+                                          (controller.isEditMode.value)
+                                              ? SizedBox(
+                                                  width: 200.kw,
+                                                  height: 40.kh,
+                                                  child: PriceButlerTextField(
+                                                    controller: controller
+                                                        .editNameController,
+                                                  ))
+                                              : Text(
+                                                  'Hi ${controller.name.value}',
+                                                  style: TextStyleUtil.inter500(
+                                                      fontSize: 20.kh),
+                                                )),
+                                      // Toggle edit mode when edit icon is pressed
+                                      Obx(() =>
+                                          // Check if edit mode is enabled
+                                          (controller.isEditMode.value)
+                                              ? PriceButtlerButton(
+                                                      onpressed: () {
+                                                        controller.isEditMode
+                                                            .toggle();
+                                                        controller.name.value =
+                                                            controller
+                                                                .editNameController
+                                                                .text;
+                                                      },
+                                                      label: 'Save',
+                                                      edgeInsets:
+                                                          EdgeInsets.only(
+                                                              top: 6.kw,
+                                                              bottom: 6.kh,
+                                                              right: 6.kw),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(8
+                                                                          .kw)),
+                                                      labelStyle: TextStyleUtil
+                                                          .inter400(
+                                                              fontSize: 16.kh,
+                                                              color:
+                                                                  Colors.black),
+                                                      color: Colors.white)
+                                                  .paddingOnly(left: 8.kw)
+                                              : IconButton(
+                                                  onPressed: () {
+                                                    controller.isEditMode
+                                                        .toggle();
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.mode_edit_rounded,
+                                                    size: 24.kh,
+                                                    color: Colors.white,
+                                                  ),
+                                                )),
+                                    ],
+                                  ),
+                                  Text(
+                                    '123456789',
+                                    style:
+                                        TextStyleUtil.inter400(fontSize: 14.kh),
+                                  ),
+                                ]),
+                          ],
+                        ).paddingOnly(bottom: 16.kh),
+                        PriceButtlerButton(
+                            onpressed: () {},
+                            profilebutton: true,
+                            label: '680 SuperCoins',
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.kw),
+                                side:
+                                    const BorderSide(color: Color(0xFFF9AB34))),
+                            labelStyle: TextStyleUtil.inter400(fontSize: 16.kh),
+                            color: Colors.transparent),
+                      ],
+                    ).paddingOnly(
+                        left: 24.kw, right: 24.kw, top: 14, bottom: 20),
+                    ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(20)),
+                        child: Container(
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ButtonBar(
+                                alignment: MainAxisAlignment.center,
+                                children: [
+                                  PriceButtlerButton(
+                                    onpressed: () {
+                                      Get.toNamed(Routes.HISTORY);
+                                    },
+                                    label: 'History',
+                                    svgPath: ImageConstant.svghistory,
+                                    edgeInsets: EdgeInsets.symmetric(
+                                        vertical: 12.kh, horizontal: 32.kw),
+                                    shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            color: Color(0xFFADADAD)),
+                                        borderRadius:
+                                            BorderRadius.circular(8.kw)),
+                                    labelStyle: TextStyleUtil.inter400(
+                                        fontSize: 16.kh, color: Colors.black),
+                                    color: Colors.white,
+                                  ).paddingOnly(right: 24.kw),
+                                  PriceButtlerButton(
+                                    onpressed: () {
+                                      Get.toNamed(Routes.COUPONS);
+                                    },
+                                    label: 'Coupons',
+                                    svgPath: ImageConstant.svgcoupon,
+                                    edgeInsets: EdgeInsets.symmetric(
+                                        vertical: 12.kh, horizontal: 32.kw),
+                                    shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            color: Color(0xFFADADAD)),
+                                        borderRadius:
+                                            BorderRadius.circular(8.kw)),
+                                    labelStyle: TextStyleUtil.inter400(
+                                        fontSize: 16.kh, color: Colors.black),
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ).paddingOnly(top: 12.kh),
+                              Divider(
+                                thickness: 8.kh,
+                                color: context.progressBarColor,
+                              ).paddingOnly(bottom: 12.kw),
+                              Obx(
+                                () => profileMenu(
+                                  svgPath: controller.profileMenuIcon,
+                                  itemCount: controller.profileMenuIcon.length,
+                                  menutitle: controller.menuTitle,
+                                  titleDescription: controller.titleDescription,
+                                  pageIndex: controller.profileMenuButton,
+                                ),
+                              ),
+                              Divider(
+                                thickness: 8.kh,
+                                color: context.progressBarColor,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  controller.logout();
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.logout,
+                                      size: 24.kh,
+                                    ).paddingOnly(right: 12.kw),
+                                    Text('Logout',
+                                        style: TextStyleUtil.inter400(
+                                            fontSize: 16.kh,
+                                            color: const Color(0xFF424244)))
+                                  ],
+                                ).paddingSymmetric(
+                                    horizontal: 30.kw, vertical: 20.kh),
+                              )
+                            ],
+                          ),
+                        ))
                   ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Profile',
-                        style: TextStyleUtil.inter500(
-                            fontSize: 20.kh, color: Colors.white),
-                      ).paddingOnly(bottom: 22.kh),
-                      Row(
-                        children: [
-                          Container(
-                            height: 56.kh,
-                            width: 56.kw,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: Colors.white, width: 1.kw)),
-                            child: Center(
-                              child: Text(
-                                'NK',
-                                style: TextStyleUtil.inter500(fontSize: 18.kh),
-                              ),
-                            ),
-                          ).paddingOnly(right: 13.kw),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Hi Nick Jhon',
-                                      style: TextStyleUtil.inter500(
-                                          fontSize: 20.kh),
-                                    ),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.mode_edit_rounded,
-                                          size: 24.kh,
-                                          color: Colors.white,
-                                        )),
-                                  ],
-                                ),
-                                Text(
-                                  '123456789',
-                                  style:
-                                      TextStyleUtil.inter400(fontSize: 14.kh),
-                                ),
-                              ]),
-                        ],
-                      ).paddingOnly(bottom: 16.kh),
-                      PriceButtlerButton(
-                          onpressed: () {},
-                          profilebutton: true,
-                          label: '680 SuperCoins',
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.kw),
-                              side: const BorderSide(color: Color(0xFFF9AB34))),
-                          labelStyle: TextStyleUtil.inter400(fontSize: 16.kh),
-                          color: Colors.transparent),
-                    ],
-                  ).paddingOnly(left: 24.kw, right: 24.kw, top: 14, bottom: 20),
-                  ClipRRect(
-                      borderRadius:
-                          const BorderRadius.vertical(top: Radius.circular(20)),
-                      child: Container(
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            ButtonBar(
-                              alignment: MainAxisAlignment.center,
-                              children: [
-                                PriceButtlerButton(
-                                  onpressed: () {
-                                    Get.toNamed(Routes.HISTORY);
-                                  },
-                                  label: 'History',
-                                  svgPath: ImageConstant.svghistory,
-                                  edgeInsets: EdgeInsets.symmetric(
-                                      vertical: 12.kh, horizontal: 32.kw),
-                                  shape: RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                          color: Color(0xFFADADAD)),
-                                      borderRadius:
-                                          BorderRadius.circular(8.kw)),
-                                  labelStyle: TextStyleUtil.inter400(
-                                      fontSize: 16.kh, color: Colors.black),
-                                  color: Colors.white,
-                                ).paddingOnly(right: 24.kw),
-                                PriceButtlerButton(
-                                  onpressed: () {
-                                    Get.toNamed(Routes.COUPONS);
-                                  },
-                                  label: 'Coupons',
-                                  svgPath: ImageConstant.svgcoupon,
-                                  edgeInsets: EdgeInsets.symmetric(
-                                      vertical: 12.kh, horizontal: 32.kw),
-                                  shape: RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                          color: Color(0xFFADADAD)),
-                                      borderRadius:
-                                          BorderRadius.circular(8.kw)),
-                                  labelStyle: TextStyleUtil.inter400(
-                                      fontSize: 16.kh, color: Colors.black),
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ).paddingOnly(top: 12.kh),
-                            Divider(
-                              thickness: 8.kh,
-                              color: context.progressBarColor,
-                            ).paddingOnly(bottom: 12.kw),
-                            Obx(
-                              () => profileMenu(
-                                svgPath: controller.profileMenuIcon,
-                                itemCount: controller.profileMenuIcon.length,
-                                menutitle: controller.menuTitle,
-                                titleDescription: controller.titleDescription,
-                                pageIndex: controller.profileMenuButton,
-                              ),
-                            ),
-                            Divider(
-                              thickness: 8.kh,
-                              color: context.progressBarColor,
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                controller.logout();
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.logout,
-                                    size: 24.kh,
-                                  ).paddingOnly(right: 12.kw),
-                                  Text('Logout',
-                                      style: TextStyleUtil.inter400(
-                                          fontSize: 16.kh,
-                                          color: const Color(0xFF424244)))
-                                ],
-                              ).paddingSymmetric(
-                                  horizontal: 30.kw, vertical: 20.kh),
-                            )
-                          ],
-                        ),
-                      ))
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }
 

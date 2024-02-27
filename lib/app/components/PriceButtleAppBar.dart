@@ -30,6 +30,7 @@ class PriceButtlerAppBar extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       elevation: elevation,
+      shadowColor: Colors.black,
       backgroundColor: color ?? Colors.transparent,
       title: title,
       centerTitle: centerTile,

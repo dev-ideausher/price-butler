@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../services/auth.dart';
-import '../../../services/storage.dart';
 
 class SignInController extends GetxController {
   //TODO: Implement SignInController
@@ -34,17 +33,11 @@ class SignInController extends GetxController {
   void increment() => count.value++;
 
   sendOtp() async {
-    try {
-      print("phone number: ${phoneNumber.value}");
-      await Get.find<AuthService>()
-          .mobileOtp(phoneno: '+91' + phoneNumber.value);
-      print('encjtoken ${Get.find<GetStorageService>().encjwToken}');
-      await Get.toNamed(
-        Routes.LOGIN_OTP_AUTHENTICATION,
-        arguments: phoneNumber.value,
-      );
-    } catch (e) {
-      print('error: $e');
-    }
+    print("phone number: ${phoneNumber.value}");
+    await Get.find<AuthService>().mobileOtp(phoneno: phoneNumber.value);
+    await Get.toNamed(
+      Routes.LOGIN_OTP_AUTHENTICATION,
+      arguments: {'phoneNumber': phoneNumber.value},
+    );
   }
 }

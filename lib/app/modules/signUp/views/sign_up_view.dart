@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pricebutler/app/components/PriceButlerTextField.dart';
 import 'package:pricebutler/app/components/PriceButtleAppBar.dart';
 import 'package:pricebutler/app/components/priceButtlerLogo.dart';
@@ -43,15 +44,42 @@ class SignUpView extends GetView<SignUpController> {
                 ).paddingOnly(
                   bottom: 16.kh,
                 ),
-                PriceButlerTextField(
-                  prefixIcon: Icon(CupertinoIcons.phone),
-                  hintText: 'Phone',
-                  controller: controller.phoneNumberController,
-                  onChanged: (value) => controller.phoneNumber.value = value,
-                  textInputType: TextInputType.numberWithOptions(),
+                IntlPhoneField(
+                  showCountryFlag: false,
+                  decoration: InputDecoration(
+                    hintText: 'Phone',
+                    filled: true,
+                    contentPadding: EdgeInsets.all(13.kw),
+                    fillColor: const Color(0xFFF2F2F2),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                            const BorderSide(color: Colors.transparent)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                            const BorderSide(color: Colors.transparent)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: Colors.red)),
+                  ),
+                  initialCountryCode: 'IN',
+                  onChanged: (number) {
+                    controller.phoneNumber.value = number.completeNumber;
+                    print(controller.phoneNumber);
+                  },
                 ).paddingOnly(
                   bottom: 16.kh,
                 ),
+                // PriceButlerTextField(
+                //   prefixIcon: Icon(CupertinoIcons.phone),
+                //   hintText: 'Phone',
+                //   controller: controller.phoneNumberController,
+                //   onChanged: (value) => controller.phoneNumber.value = value,
+                //   textInputType: TextInputType.numberWithOptions(),
+                // ).paddingOnly(
+                //   bottom: 16.kh,
+                // ),
                 Row(
                   children: [
                     Obx(
@@ -76,9 +104,14 @@ class SignUpView extends GetView<SignUpController> {
                 Obx(
                   () => PriceButtlerButton(
                     onpressed: () {
+                      controller.sendOtp();
                       controller.phoneNumber.isNotEmpty &&
                               controller.name.isNotEmpty
-                          ? controller.handleButtonPress()
+                          ? Get.toNamed(Routes.SIGN_UP_OTP_AUTHENTICATION,
+                              arguments: {
+                                  'name': controller.name,
+                                  'phoneNumber': controller.phoneNumber
+                                })
                           : null;
                       print(controller.phoneNumber);
                     },

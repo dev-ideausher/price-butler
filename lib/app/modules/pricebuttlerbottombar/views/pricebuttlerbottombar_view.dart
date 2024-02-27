@@ -31,7 +31,14 @@ class PricebuttlerbottombarView
           selectedItemColor: context.Green,
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(ImageConstant.svghome),
+              icon: SvgPicture.asset(
+                ImageConstant.svghome,
+                color: Colors.grey,
+              ),
+              activeIcon: SvgPicture.asset(
+                ImageConstant.svghome,
+                color: context.Green,
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(

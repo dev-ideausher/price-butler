@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:pricebutler/app/services/snackbar.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -10,8 +11,8 @@ import 'storage.dart';
 
 class AuthService extends GetxService {
   final auth = FirebaseAuthenticationService();
-
-  // AuthCredential? _pendingCredential;
+  final _facebookLogin = FacebookAuth.instance;
+  AuthCredential? _pendingCredential;
   final _firebaseAuth = FirebaseAuth.instance;
 
   google() async {
@@ -19,8 +20,6 @@ class AuthService extends GetxService {
     final result = await auth.signInWithGoogle().then((value) async {
       await handleGetContact();
     });
-
-    print('Google : ${await result.user?.getIdToken()}');
   }
 
   apple() async {
@@ -46,82 +45,94 @@ class AuthService extends GetxService {
     print('EmailPass : ${await result.user?.getIdToken()}');
   }
 
-  createEmailPass({required String email, required String pass}) async {
-    final result = await auth
-        .createAccountWithEmail(email: email, password: pass)
-        .then((value) async {
-      await handleGetContact();
-    });
-    print('EmailPass : ${await result.user?.getIdToken()}');
-  }
-
-//phone number with country code
-  mobileOtp({required String phoneno}) async {
-    DialogHelper.showLoading();
-    await auth.requestVerificationCode(
-      phoneNumber: phoneno,
-      onCodeSent: (authenticationResult) {},
-      onVerificationFailed: (exception) =>
-          showMySnackbar(msg: exception.message ?? ''),
-    );
-    DialogHelper.hideDialog();
-  }
-
-  Future<bool> verifyMobileOtp({required String otp}) async {
+  Future<bool> loginWithEmailPass(
+      {required String email, required String pass}) async {
     DialogHelper.showLoading();
     bool status = false;
-    await auth.authenticateWithOtp(otp).then((value) async {
+    await auth.loginWithEmail(email: email, password: pass).then((value) async {
       if (!value.hasError) {
         await handleGetContact();
-        return status = true;
+        status = true;
       } else {
-        showMySnackbar(msg: value.errorMessage ?? '');
-        return status = false;
+        showMySnackbar(msg: value.errorMessage!);
       }
     });
     DialogHelper.hideDialog();
     return status;
   }
 
-  // facebook() async {
-  //   //TODO: do the required setup mentioned in https://pub.dev/packages/flutter_facebook_auth
-  //   final result = await signInWithFacebook().then((value) async {
-  //     await handleGetContact();
-  //   });
-  //   print('Facebook : ${await result.user?.getIdToken()}');
-  // }
+  Future<bool> createEmailPass(
+      {required String email, required String pass}) async {
+    DialogHelper.showLoading();
+    bool status = false;
+    await auth
+        .createAccountWithEmail(email: email, password: pass)
+        .then((value) async {
+      if (!value.hasError) {
+        await handleGetContact();
+        status = true;
+      } else {
+        showMySnackbar(msg: value.errorMessage!);
+      }
+    });
+    DialogHelper.hideDialog();
+    return status;
+  }
 
-  // Future<FirebaseAuthenticationResult> signInWithFacebook() async {
-  //   try {
-  //     LoginResult fbLogin = await _facebookLogin.login();
-  //     // log?.v('Facebook Sign In complete. \naccessToken:${accessToken.token}');
+//phone number with country code
+  mobileOtp({required String phoneno}) async {
+    await auth.requestVerificationCode(
+      phoneNumber: phoneno,
+      onCodeSent: (verificationId) => {print(verificationId)},
+    );
+  }
 
-  //     final OAuthCredential facebookCredentials =
-  //         FacebookAuthProvider.credential(fbLogin.accessToken!.token);
+  verifyMobileOtp({required String otp}) async {
+    final result = await auth.authenticateWithOtp(otp).then((value) async {
+      await handleGetContact();
+    });
+  }
 
-  //     var result =
-  //         await _firebaseAuth.signInWithCredential(facebookCredentials);
+  facebook() async {
+    //TODO: do the required setup mentioned in https://pub.dev/packages/flutter_facebook_auth
+    final result = await signInWithFacebook().then((value) async {
+      await handleGetContact();
+    });
+    print('Facebook : ${await result.user?.getIdToken()}');
+  }
 
-  //     // Link the pending credential with the existing account
-  //     if (_pendingCredential != null) {
-  //       await result.user?.linkWithCredential(_pendingCredential!);
-  //     }
+  Future<FirebaseAuthenticationResult> signInWithFacebook() async {
+    try {
+      LoginResult fbLogin = await _facebookLogin.login();
+      // log?.v('Facebook Sign In complete. \naccessToken:${accessToken.token}');
 
-  //     return FirebaseAuthenticationResult(user: result.user);
-  //   } catch (e) {
-  //     // log?.e(e);
-  //     return FirebaseAuthenticationResult.error(errorMessage: e.toString());
-  //   }
-  // }
+      final OAuthCredential facebookCredentials =
+          FacebookAuthProvider.credential(fbLogin.accessToken!.token);
+
+      var result =
+          await _firebaseAuth.signInWithCredential(facebookCredentials);
+
+      // Link the pending credential with the existing account
+      if (_pendingCredential != null) {
+        await result.user?.linkWithCredential(_pendingCredential!);
+      }
+
+      return FirebaseAuthenticationResult(user: result.user);
+    } catch (e) {
+      // log?.e(e);
+      return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+    }
+  }
 
   Future<void> handleGetContact() async {
-    final mytoken = await _firebaseAuth.currentUser!.getIdToken(true);
-    // final fireUid = _firebaseAuth.currentUser!.uid;
+    final mytoken = await _firebaseAuth.currentUser?.getIdToken(true);
+    final fireUid = _firebaseAuth.currentUser?.uid;
 
-    Get.find<GetStorageService>().encjwToken = mytoken ?? '';
-    // Get.find<GetStorageService>().setFirebaseUid = fireUid;
-    log(Get.find<GetStorageService>().encjwToken);
-    // log('i am user id${Get.find<GetStorageService>().getFirebaseUid}');
+    Get.find<GetStorageService>().setEncjwToken = mytoken!;
+    print('token $mytoken');
+    //Get.find<GetStorageService>().setFirebaseUid = fireUid;
+    log(Get.find<GetStorageService>().getEncjwToken);
+    //debugPrint('i am user id${Get.find<GetStorageService>().getFirebaseUid}');
   }
 
   Future<void> logOutUser() async {
@@ -130,7 +141,8 @@ class AuthService extends GetxService {
     Get.find<GetStorageService>().logout();
     // firbase logout
     auth.logout();
-    // navigate to login pa
+    // navigate to login page
+    // await Get.offAllNamed(Routes.LOGIN);
     await DialogHelper.hideDialog();
   }
 }

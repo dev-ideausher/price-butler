@@ -80,6 +80,7 @@ class HomeController extends GetxController {
 
   RxList<String> dummyList =
       ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'].obs;
+
   @override
   void onInit() {
     super.onInit();

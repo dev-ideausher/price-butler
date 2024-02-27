@@ -25,7 +25,10 @@ class AppInterceptors extends Interceptor {
     isOverlayLoader ? DialogHelper.showLoading() : null;
     await Helpers.validateToken(
       onSuccess: () {
-        options.headers = {"token": Get.find<GetStorageService>().encjwToken};
+        options.headers = {
+          "Authorization":
+              'Bearer ${Get.find<GetStorageService>().getEncjwToken}'
+        };
         super.onRequest(options, handler);
       },
     );
@@ -53,18 +56,18 @@ class AppInterceptors extends Interceptor {
       debugPrint(e.toString());
     }
 
-    // try {
-    //   print('${err.response?.statusCode}\n${err.response!.data['message']}');
-    //   if (err.response?.statusCode == 500 &&
-    //       err.response!.data['message'] ==
-    //           'Firebase ID token has expired. Get a fresh ID token from your client app and try again (auth/id-token-expired). See https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve an ID token.') {
-    //     if (await refreshToken()) {
-    //       return handler.resolve(await retry(err.requestOptions));
-    //     }
-    //   }
-    // } catch (e) {
-    //   debugPrint(e.toString());
-    // }
+    try {
+      print('${err.response?.statusCode}\n${err.response!.data['message']}');
+      if (err.response?.statusCode == 500 &&
+          err.response!.data['message'] ==
+              'Firebase ID token has expired. Get a fresh ID token from your client app and try again (auth/id-token-expired). See https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve an ID token.') {
+        // if (await refreshToken()) {
+        //   return handler.resolve(await retry(err.requestOptions));
+        // }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
 
     return handler.next;
   }
@@ -80,43 +83,48 @@ class AppInterceptors extends Interceptor {
         options: options);
   }
 
-  // Future<bool> refreshToken() async {
-  //   try {
-  //     Get.find<GetStorageService>().setEncjwToken =
-  //         (await FirebaseAuth.instance.currentUser?.getIdToken(true))!;
-  //     print('hello from app_interceptor : ${true}');
-  //     return true;
-  //   } catch (e) {
-  //     print('hello from app_interceptor : ${false}');
-
-  //     return false;
-  //   }
-  // }
+// Future<bool> refreshToken() async {
+//   try {
+//     Get.find<GetStorageService>().getEncjwToken =
+//         (await FirebaseAuth.instance.currentUser?.getIdToken(true))!;
+//     print('hello from app_interceptor : ${true}');
+//     print(Get.find<GetStorageService>().getEncjwToken);
+//     return true;
+//   } catch (e) {
+//     print('hello from app_interceptor : ${false}');
+//     return false;
+//   }
+// }
 }
 
 class Helpers {
   static bool _tokenIsValid() {
-    return Get.find<GetStorageService>().encjwToken.isNotEmpty
-        ? JwtDecoder.isValid(Get.find<GetStorageService>().encjwToken)
+    return Get.find<GetStorageService>().getEncjwToken.isNotEmpty
+        ? JwtDecoder.isValid(Get.find<GetStorageService>().getEncjwToken)
         : false;
   }
 
   static Future<bool> validateToken({required Function() onSuccess}) async {
-    if (_tokenIsValid()) {
+    if (Get.find<GetStorageService>().getisCreator) {
       onSuccess();
       return true;
     } else {
-      try {
-        Get.find<GetStorageService>().encjwToken =
-            (await FirebaseAuth.instance.currentUser?.getIdToken(true))!;
+      if (_tokenIsValid()) {
         onSuccess();
         return true;
-      } catch (e) {
-        showMySnackbar(
-            msg: "Session Expired. Please Login Again", title: 'Error');
-        Get.find<GetStorageService>().logout();
-        Get.offAllNamed(Routes.SPLASH);
-        return false;
+      } else {
+        try {
+          Get.find<GetStorageService>().setEncjwToken =
+              (await FirebaseAuth.instance.currentUser?.getIdToken(true))!;
+          onSuccess();
+          return true;
+        } catch (e) {
+          showMySnackbar(
+              msg: "Session Expired. Please Login Again", title: 'Error');
+          Get.find<GetStorageService>().logout();
+          Get.offAllNamed(Routes.SPLASH);
+          return false;
+        }
       }
     }
   }

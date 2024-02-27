@@ -90,6 +90,19 @@ class TextStyleUtil {
     );
   }
 
+  static TextStyle inter500ExpansionTile({
+    Color? color,
+    FontWeight? fontWeight,
+    required double fontSize,
+  }) {
+    return TextStyle(
+      fontFamily: 'Inter',
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight ?? FontWeight.w500,
+    );
+  }
+
   static TextStyle robotoCondensed700({
     Color color = Colors.white,
     required double fontSize,

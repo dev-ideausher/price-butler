@@ -37,7 +37,7 @@ class LoginOtpAuthenticationView
                     TextStyleUtil.inter700(fontSize: 24, color: Colors.black),
               ).paddingOnly(top: 40.kh, bottom: 16.kh),
               Text(
-                'Please enter the verification code send to $phoneNumber',
+                'Please enter the verification code send to ${phoneNumber['phoneNumber']}',
                 textAlign: TextAlign.center,
                 style: TextStyleUtil.inter400(
                     fontSize: 16, color: context.GreyNeutral),

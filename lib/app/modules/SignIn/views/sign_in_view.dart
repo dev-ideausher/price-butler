@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pricebutler/app/components/PriceButlerTextField.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pricebutler/app/components/PriceButtleButton.dart';
 import 'package:pricebutler/app/components/SocialMediaLoginRow.dart';
 import 'package:pricebutler/app/routes/app_pages.dart';
@@ -48,20 +47,47 @@ class SignInView extends GetView<SignInController> {
                     color: Colors.black,
                   ),
                 ).paddingOnly(top: 34.kh, bottom: 34.kh),
-                PriceButlerTextField(
-                  prefixIcon: Icon(
-                    CupertinoIcons.phone,
-                    color: context.GreyNeutral,
+                IntlPhoneField(
+                  showCountryFlag: false,
+                  decoration: InputDecoration(
+                    hintText: 'Phone',
+                    filled: true,
+                    contentPadding: EdgeInsets.all(13.kw),
+                    fillColor: const Color(0xFFF2F2F2),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                            const BorderSide(color: Colors.transparent)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                            const BorderSide(color: Colors.transparent)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: Colors.red)),
                   ),
-                  focusColor: context.GreyNeutral,
-                  textInputType: TextInputType.numberWithOptions(),
-                  hintText: 'Phone',
-                  onChanged: (value) => controller.phoneNumber.value = value,
-                  textStyle: TextStyleUtil.inter400(
-                    fontSize: 16.kh,
-                    color: context.GreyNeutral,
-                  ),
-                ).paddingOnly(bottom: 24.kh),
+                  initialCountryCode: 'IN',
+                  onChanged: (number) {
+                    controller.phoneNumber.value = number.completeNumber;
+                    print(controller.phoneNumber);
+                  },
+                ).paddingOnly(
+                  bottom: 16.kh,
+                ),
+                // PriceButlerTextField(
+                //   prefixIcon: Icon(
+                //     CupertinoIcons.phone,
+                //     color: context.GreyNeutral,
+                //   ),
+                //   focusColor: context.GreyNeutral,
+                //   textInputType: TextInputType.numberWithOptions(),
+                //   hintText: 'Phone',
+                //   onChanged: (value) => controller.phoneNumber.value = value,
+                //   textStyle: TextStyleUtil.inter400(
+                //     fontSize: 16.kh,
+                //     color: context.GreyNeutral,
+                //   ),
+                // ).paddingOnly(bottom: 24.kh),
                 Obx(
                   () => PriceButtlerButton(
                     onpressed: () {

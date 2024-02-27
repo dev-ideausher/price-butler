@@ -25,7 +25,7 @@ class SignUpSuccessFulView extends GetView<SignUpSuccessFulController> {
               svgPath: ImageConstant.svgloginsuccessful,
             ).paddingOnly(top: 290.kh, bottom: 40.kh),
             Text(
-              'Login Successfully',
+              'SignUp Successfully',
               style:
                   TextStyleUtil.inter700(fontSize: 24.kh, color: Colors.black),
             ).paddingOnly(bottom: 5.kh),

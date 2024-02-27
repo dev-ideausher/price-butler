@@ -9,13 +9,12 @@ import '../../../components/PriceButtleAppBar.dart';
 import '../../../components/PriceButtleButton.dart';
 import '../../../components/common_image_view.dart';
 import '../../../constants/image_constant.dart';
-import '../../../routes/app_pages.dart';
 import '../../../services/text_style_util.dart';
 import '../controllers/sign_up_otp_authentication_controller.dart';
 
 class SignUpOtpAuthenticationView
     extends GetView<SignUpOtpAuthenticationController> {
-  final phoneNumber = Get.arguments;
+  final phoneNumber = Get.arguments['phoneNumber'];
   SignUpOtpAuthenticationView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -44,14 +43,19 @@ class SignUpOtpAuthenticationView
                     fontSize: 16, color: context.GreyNeutral),
               ),
               OtpTextField(
-                numberOfFields: 4,
-                fieldWidth: 64.kw,
+                numberOfFields: 6,
+                fieldWidth: 50.kw,
                 filled: true,
                 fillColor: context.primaryLightGreen03,
                 showFieldAsBox: true,
                 focusedBorderColor: context.Green,
                 borderRadius: BorderRadius.circular(8.kw),
-                onCodeChanged: (String code) {},
+                onCodeChanged: (String code) {
+                  controller.otp.value = code;
+                },
+                onSubmit: (code) {
+                  controller.otp.value = code;
+                },
               ).paddingOnly(top: 38.kh, bottom: 16.kh),
               RichText(
                 text: TextSpan(
@@ -74,7 +78,7 @@ class SignUpOtpAuthenticationView
               ).paddingOnly(top: 10.kh, bottom: 31.kh),
               PriceButtlerButton(
                   onpressed: () {
-                    Get.toNamed(Routes.SIGN_UP_SUCCESS_FUL);
+                    controller.verifyOTP();
                   },
                   label: 'Verify Otp',
                   labelStyle: TextStyleUtil.inter400(fontSize: 16.kh),

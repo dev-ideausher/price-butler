@@ -67,6 +67,8 @@ dependencies:
   syncfusion_flutter_sliders: ^23.2.6
   cupertino_range_slider_improved: ^2.0.1
   another_xlider: ^3.0.2
+  intl_phone_field: ^3.2.0
+  jumping_dot: ^0.0.6
 
 dev_dependencies:
   flutter_test:

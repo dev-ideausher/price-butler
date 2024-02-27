@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pricebutler/app/constants/image_constant.dart';
 import 'package:pricebutler/app/routes/app_pages.dart';
@@ -6,8 +7,8 @@ import '../../../services/auth.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
+  RxBool isEditMode = false.obs;
 
-  final count = 0.obs;
   RxList<String> profileMenuButton = [
     Routes.PRICE_ALERT,
     Routes.REFERANDEARN,
@@ -32,6 +33,8 @@ class ProfileController extends GetxController {
     'All frequently asked questions',
     'Manage notificationss',
   ].obs;
+  Rx<String> name = 'xyz'.obs;
+  final TextEditingController editNameController = TextEditingController();
   @override
   void onInit() {
     super.onInit();
@@ -46,8 +49,6 @@ class ProfileController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 
   logout() async {
     try {
